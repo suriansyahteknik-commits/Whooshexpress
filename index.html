@@ -46,26 +46,12 @@
         }
     </script>
     <style>
-        /* Custom scrollbar & smooth scrolling */
         html { scroll-behavior: smooth; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #0B3A68; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #F26522; }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-        }
-        .glass-card-dark {
-            background: rgba(7, 36, 66, 0.85);
-            backdrop-filter: blur(12px);
-        }
-
-        /* Map Specific Styles */
-        #logistic-map {
-            z-index: 10 !important;
-        }
         .leaflet-container {
             background-color: #072442;
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -102,14 +88,18 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 
-                <!-- GAMBAR LOGO UTUH (Ganti logo.png dengan nama file logo Anda) -->
-                <div class="flex items-center gap-3 shrink-0">
-                    <a href="#beranda" class="flex items-center gap-2 group">
-                        <img 
-                            src="logo.png" 
-                            alt="PT. Whoosh Indonesia Ekspres Logo" 
-                            class="h-10 w-auto object-contain transition-transform group-hover:scale-105"
-                        >
+                <!-- LOGO SAFE FALLBACK (Tampilan Tetap Rapi Walau File Gambar Belum Ada) -->
+                <a href="#beranda" class="flex items-center group">
+                <!-- Ganti src di bawah ini sesuai nama & folder file logo kamu -->
+                <img src="logo-whoosh.png" alt="Whoosh Indonesia Ekspres" class="h-12 w-auto object-contain">
+                </a>
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-whoosh-blue to-whoosh-lightBlue flex items-center justify-center text-white font-black text-xl shadow-md border border-blue-400/30 group-hover:scale-105 transition-transform">
+                            <span class="text-whoosh-orange">W</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-extrabold text-lg text-whoosh-blue leading-none tracking-tight">WHOOSH</span>
+                            <span class="text-[9px] font-bold text-whoosh-orange tracking-widest uppercase">INDONESIA EKSPRES</span>
+                        </div>
                     </a>
                 </div>
 
@@ -241,7 +231,6 @@
                             <span class="text-xs font-bold text-white tracking-wide">Live GPS Active</span>
                         </div>
                     </div>
-                    <div class="absolute top-10 left-10 w-full h-full bg-gradient-to-tr from-whoosh-orange to-yellow-500 rounded-3xl opacity-20 -z-10 blur-xl"></div>
                 </div>
 
             </div>
@@ -254,7 +243,6 @@
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-50 px-3 py-1 rounded-full border border-orange-100">Kapasitas Operasional</span>
                 <h2 class="text-2xl md:text-3xl font-extrabold text-whoosh-blue mt-3">Layanan Spesialis Pengantaran Kendaraan</h2>
-                <p class="text-gray-500 text-sm mt-2">Menangani berbagai jenis unit dari kendaraan pribadi hingga kebutuhan proyek & industri berat nasional.</p>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -326,22 +314,6 @@
                     <p class="text-sm text-gray-600 leading-relaxed">
                         Kami hadir untuk mendukung kebutuhan operasional korporasi, balai lelang, rental mobil, dealer, dan pemilik armada dalam mengelola proses pengiriman kendaraan antar kota dan pulau secara efisien, terukur, dan transparan.
                     </p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                        <div class="bg-blue-50/60 border-l-4 border-whoosh-blue p-5 rounded-r-xl transition-all hover:shadow-md">
-                            <h4 class="font-bold text-whoosh-blue text-sm mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-laptop-code text-whoosh-orange"></i> One Stop Solution
-                            </h4>
-                            <p class="text-xs text-gray-600 leading-relaxed">Integrasi teknologi web dashboard, jaringan basecamp nasional, & pelacakan real-time melalui aplikasi mobile.</p>
-                        </div>
-
-                        <div class="bg-orange-50/60 border-l-4 border-whoosh-orange p-5 rounded-r-xl transition-all hover:shadow-md">
-                            <h4 class="font-bold text-whoosh-blue text-sm mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-handshake text-whoosh-orange"></i> Kemitraan Strategis
-                            </h4>
-                            <p class="text-xs text-gray-600 leading-relaxed">Penerapan standar operasional (SOP) ketat khusus untuk melayani balai lelang, fleet rental, & APM dealer.</p>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Core Values WHOOSH -->
@@ -380,20 +352,6 @@
                                     <p class="text-[10px] text-gray-500">Tanggung jawab penuh</p>
                                 </div>
                             </div>
-                            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-3">
-                                <div class="w-10 h-10 bg-whoosh-blue text-white rounded-lg flex justify-center items-center font-black text-lg shrink-0">S</div>
-                                <div>
-                                    <h4 class="font-bold text-sm text-gray-800">Safety First</h4>
-                                    <p class="text-[10px] text-gray-500">Prioritas keselamatan aset</p>
-                                </div>
-                            </div>
-                            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-3">
-                                <div class="w-10 h-10 bg-whoosh-orange text-white rounded-lg flex justify-center items-center font-black text-lg shrink-0">H</div>
-                                <div>
-                                    <h4 class="font-bold text-sm text-gray-800">Human Centric</h4>
-                                    <p class="text-[10px] text-gray-500">Pelayanan ramah & solusi</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -405,18 +363,37 @@
     <!-- Struktur Organisasi & Jaringan Basecamp -->
     <section id="struktur-organisasi" class="py-20 bg-gray-100 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="text-center max-w-3xl mx-auto mb-12">
                 <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-100/80 px-3 py-1 rounded-full border border-orange-200">Jaringan Logistik Nasional</span>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">11 Basecamp Operasional Indonesia</h2>
                 <p class="text-gray-600 text-sm">Terhubung secara terintegrasi melalui jalur darat dan laut di seluruh kota utama Nusantara.</p>
             </div>
 
-            <!-- Leaflet Interactive Map -->
-            <div class="bg-whoosh-dark rounded-3xl p-4 shadow-2xl border border-slate-700 mb-12">
-                <div id="logistic-map" class="w-full h-[450px] rounded-2xl"></div>
+            <!-- Leaflet Interactive Map Container with Floating Legend -->
+            <div class="relative bg-whoosh-dark rounded-3xl p-3 sm:p-4 shadow-2xl border border-slate-700 mb-12">
+                <div id="logistic-map" class="w-full h-[500px] rounded-2xl z-10"></div>
+                
+                <!-- MAP LEGEND BOX (SESUAI DESAIN GAMBAR) -->
+                <div class="absolute top-8 right-8 z-[1000] bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-gray-200 hidden sm:block max-w-xs">
+                    <h5 class="font-extrabold text-xs text-whoosh-blue uppercase tracking-wider mb-3">Keterangan Peta</h5>
+                    <div class="space-y-2.5 text-xs font-bold text-gray-700">
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-1.5 bg-whoosh-orange rounded-full"></span>
+                            <span class="text-[11px] text-gray-600">JALUR DARAT (TOWING/SELF-DRIVE)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 border-b-2 border-dashed border-sky-400 h-0"></span>
+                            <span class="text-[11px] text-gray-600">JALUR LAUT (KAPAL RO-RO/KARGO)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-3.5 h-3.5 rounded-full bg-whoosh-orange border-2 border-white shadow-sm inline-block"></span>
+                            <span class="text-[11px] text-gray-600">TITIK BASECAMP OPERASIONAL</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Basecamp Location Cards -->
+            <!-- Basecamp Location Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 text-center">
                 <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                     <i class="fa-solid fa-location-dot text-whoosh-orange text-lg mb-1"></i>
@@ -446,42 +423,6 @@
         </div>
     </section>
 
-    <!-- Keunggulan Layanan & Platform -->
-    <section id="layanan" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-50 px-3 py-1 rounded-full border border-orange-100">Ekosistem Digital</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">Mengapa Menggunakan Whoosh Express?</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition-all">
-                    <div class="w-14 h-14 bg-whoosh-blue text-white rounded-2xl flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-route"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-whoosh-blue mb-3">Live GPS Tracking 24/7</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">Pantau posisi kendaraan Anda secara akurat dan real-time langsung melalui dashboard klien kapan saja.</p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition-all">
-                    <div class="w-14 h-14 bg-whoosh-orange text-white rounded-2xl flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-clipboard-check"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-whoosh-blue mb-3">Digital Checklist Inspection</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">Inspeksi awal dan akhir kondisi fisik unit tercatat transparan via sistem digital dengan lampiran foto lengkap.</p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition-all">
-                    <div class="w-14 h-14 bg-whoosh-blue text-white rounded-2xl flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-shield-cat"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-whoosh-blue mb-3">Asuransi All-Risk Full Coverage</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">Perlindungan asuransi pengiriman penuh untuk menjamin keamanan aset Anda selama dalam perjalanan.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="bg-whoosh-dark text-white pt-16 pb-8 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -489,17 +430,20 @@
                 
                 <!-- Footer Logo -->
                 <div class="space-y-4">
-                    <img 
-                        src="logo.png" 
-                        alt="Logo Whoosh Express Footer" 
-                        class="h-10 w-auto object-contain brightness-200"
-                    >
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-whoosh-blue to-whoosh-lightBlue flex items-center justify-center text-white font-black text-xl shadow-md border border-blue-400/30">
+                            <span class="text-whoosh-orange">W</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-extrabold text-lg text-white leading-none tracking-tight">WHOOSH</span>
+                            <span class="text-[9px] font-bold text-whoosh-orange tracking-widest uppercase">INDONESIA EKSPRES</span>
+                        </div>
+                    </div>
                     <p class="text-xs text-gray-400 leading-relaxed">
                         PT. Whoosh Indonesia Ekspres adalah platform pengiriman kendaraan nasional tepercaya untuk mobil, truk, towing, & alat berat.
                     </p>
                 </div>
 
-                <!-- Quick Links -->
                 <div>
                     <h4 class="font-bold text-sm text-whoosh-orange mb-4 uppercase tracking-wider">Navigasi</h4>
                     <ul class="space-y-2 text-xs text-gray-300">
@@ -510,7 +454,6 @@
                     </ul>
                 </div>
 
-                <!-- Kontak -->
                 <div>
                     <h4 class="font-bold text-sm text-whoosh-orange mb-4 uppercase tracking-wider">Kontak Utama</h4>
                     <ul class="space-y-2 text-xs text-gray-300">
@@ -520,10 +463,9 @@
                     </ul>
                 </div>
 
-                <!-- Operational Hours -->
                 <div>
                     <h4 class="font-bold text-sm text-whoosh-orange mb-4 uppercase tracking-wider">Layanan</h4>
-                    <p class="text-xs text-gray-300 mb-2">Dukungan Sistem & Monitoring GPS Aktivitas Armada 24 Jam Nonstop.</p>
+                    <p class="text-xs text-gray-300 mb-2">Dukungan Monitoring GPS Aktivitas Armada 24 Jam Nonstop.</p>
                     <span class="inline-block bg-green-500/20 text-green-400 border border-green-500/40 text-[10px] font-bold px-3 py-1 rounded-full">Operational Status: 24/7 Active</span>
                 </div>
 
@@ -547,24 +489,33 @@
 
         // Initialize Leaflet Map
         document.addEventListener('DOMContentLoaded', function() {
-            var map = L.map('logistic-map').setView([-2.548926, 118.0148634], 5); // Center Indonesia
+            var map = L.map('logistic-map', {
+                scrollWheelZoom: false
+            }).setView([-2.2, 118.0], 5); // Center Indonesia
 
+            // Dark Map Tile Layer
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
                 subdomains: 'abcd',
-                maxZoom: 19
+                maxZoom: 18
             }).addTo(map);
 
-            // Basecamp Coordinates
+            // 11 Basecamp Coordinates
             var basecamps = [
-                { name: "Jakarta Basecamp (HQ)", lat: -6.2088, lng: 106.8456 },
-                { name: "Bandung Basecamp", lat: -6.9175, lng: 107.6191 },
-                { name: "Semarang Basecamp", lat: -6.9666, lng: 110.4167 },
-                { name: "Surabaya Basecamp", lat: -7.2575, lng: 112.7521 },
-                { name: "Medan Basecamp", lat: 3.5952, lng: 98.6722 },
-                { name: "Palembang Basecamp", lat: -2.9761, lng: 104.7754 }
+                { name: "Medan", lat: 3.5952, lng: 98.6722 },
+                { name: "Palembang", lat: -2.9761, lng: 104.7754 },
+                { name: "Jakarta (HQ)", lat: -6.2088, lng: 106.8456 },
+                { name: "Bandung", lat: -6.9175, lng: 107.6191 },
+                { name: "Semarang", lat: -6.9666, lng: 110.4167 },
+                { name: "Surabaya", lat: -7.2575, lng: 112.7521 },
+                { name: "Denpasar", lat: -8.6705, lng: 115.2126 },
+                { name: "Pontianak", lat: -0.0263, lng: 109.3425 },
+                { name: "Banjarmasin", lat: -3.3167, lng: 114.5901 },
+                { name: "Makassar", lat: -5.1477, lng: 119.4327 },
+                { name: "Manado", lat: 1.4748, lng: 124.8428 }
             ];
 
+            // Render Titik Basecamp Marker
             basecamps.forEach(function(camp) {
                 L.circleMarker([camp.lat, camp.lng], {
                     radius: 7,
@@ -572,8 +523,46 @@
                     color: "#ffffff",
                     weight: 2,
                     opacity: 1,
-                    fillOpacity: 0.9
-                }).addTo(map).bindPopup("<b>" + camp.name + "</b><br>Operasional 24 Jam");
+                    fillOpacity: 0.95
+                }).addTo(map).bindPopup("<b style='color:#0B3A68'>" + camp.name + "</b><br>Basecamp Operasional 24 Jam");
+            });
+
+            // JALUR DARAT (Garis Oranye Solid)
+            var jalurDarat = [
+                // Jalur Sumatra (Medan - Palembang - Jakarta)
+                [[3.5952, 98.6722], [-2.9761, 104.7754], [-6.2088, 106.8456]],
+                // Jalur Jawa - Bali (Jakarta - Bandung - Semarang - Surabaya - Denpasar)
+                [[-6.2088, 106.8456], [-6.9175, 107.6191], [-6.9666, 110.4167], [-7.2575, 112.7521], [-8.6705, 115.2126]],
+                // Jalur Sulawesi (Makassar - Manado)
+                [[-5.1477, 119.4327], [1.4748, 124.8428]],
+                // Jalur Kalimantan (Banjarmasin - Pontianak)
+                [[-3.3167, 114.5901], [-0.0263, 109.3425]]
+            ];
+
+            jalurDarat.forEach(function(route) {
+                L.polyline(route, {
+                    color: '#F26522',
+                    weight: 3,
+                    opacity: 0.9
+                }).addTo(map);
+            });
+
+            // JALUR LAUT (Garis Putus-putus Biru)
+            var jalurLaut = [
+                [[-6.2088, 106.8456], [-0.0263, 109.3425]], // Jkt - Pontianak
+                [[-6.2088, 106.8456], [-3.3167, 114.5901]], // Jkt - Banjarmasin
+                [[-7.2575, 112.7521], [-3.3167, 114.5901]], // Surabaya - Banjarmasin
+                [[-7.2575, 112.7521], [-5.1477, 119.4327]], // Surabaya - Makassar
+                [[-5.1477, 119.4327], [-2.5, 140.0]]        // Makassar - Papua/Timur
+            ];
+
+            jalurLaut.forEach(function(route) {
+                L.polyline(route, {
+                    color: '#38BDF8',
+                    weight: 2,
+                    dashArray: '6, 8',
+                    opacity: 0.85
+                }).addTo(map);
             });
         });
     </script>
