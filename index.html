@@ -163,17 +163,19 @@
                 <a href="#layanan" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Keunggulan Layanan</a>
                 <a href="#ekosistem" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Sistem Ekosistem</a>
                 
-                <div class="pt-3 flex flex-col gap-2">
-                    <button onclick="openClientModal()" class="w-full bg-whoosh-blue text-white px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow">
-                        <i class="fa-solid fa-shield-halved"></i> Login Client Dashboard
-                    </button>
-                    <a href="https://drive.google.com/uc?export=download&id=1SXzt9lgpztcpLFQPLaiQ7Paxm6cCJTuJ" class="w-full bg-gray-800/80 hover:bg-gray-800 border border-gray-700 px-4 py-3 rounded-xl flex items-center justify-center gap-2 text-sm transition-all shadow text-white">
-                        <i class="fa-solid fa-file-pdf text-red-500"></i> Download Proposal
-                    </a>
-                </div>
+              <div class="pt-3 flex flex-col gap-2">
+              <button onclick="openClientModal()" class="w-full bg-whoosh-blue text-white px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow">
+             <i class="fa-solid fa-shield-halved"></i> Login Client Dashboard
+            </button>
+           <a href="kerjasama-whooshexpress.pdf" download="kerjasama-whooshexpress.pdf" target="_blank" 
+            class="w-full bg-gray-800/80 hover:bg-gray-800 border border-gray-700 px-4 py-3 rounded-xl flex items-center justify-center gap-2 text-sm transition-all shadow text-white">
+             <i class="fa-solid fa-file-pdf text-red-500"></i> Download Proposal
+          </a>
+            </div>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
     
     <section id="beranda" class="relative min-h-[600px] lg:min-h-[680px] pt-12 pb-20 lg:pt-20 lg:pb-28 flex items-center overflow-hidden bg-gray-900">
         <div class="absolute inset-0 z-0">
@@ -210,16 +212,16 @@
                             </div>
                         </a>
 
-                        <button onclick="downloadProposalDummy()" 
-                           class="bg-white/15 hover:bg-white/25 text-white border border-white/20 px-6 py-3.5 rounded-xl font-bold transition-all flex items-center gap-3 backdrop-blur-md cursor-pointer">
-                            <i class="fa-solid fa-file-pdf text-red-400 text-xl"></i>
-                            <div class="text-left leading-tight">
-                                <span class="block text-[10px] text-gray-300 tracking-wider uppercase font-semibold">Pelajari Layanan Kami</span>
-                                <span class="text-sm">Download Proposal</span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
+                        <a href="kerjasama-whooshexpress.pdf" download="kerjasama-whooshexpress.pdf" target="_blank" 
+               class="bg-white/15 hover:bg-white/25 text-white border border-white/20 px-6 py-3.5 rounded-xl font-bold transition-all flex items-center gap-3 backdrop-blur-md cursor-pointer">
+                <i class="fa-solid fa-file-pdf text-red-400 text-xl"></i>
+               <div class="text-left leading-tight">
+                <span class="block text-[10px] text-gray-300 tracking-wider uppercase font-semibold">Pelajari Layanan Kami</span>
+                   <span class="text-sm">Download Proposal</span>
+                  </div>
+              </a>
+           </div>
+        </div>
 
                 <div class="hidden lg:block absolute bottom-0 right-0 w-[300px] bg-white/10 backdrop-blur-md border border-white/20 p-2.5 rounded-2xl shadow-2xl">
                     <div class="relative rounded-xl overflow-hidden aspect-[4/3]">
@@ -883,11 +885,11 @@
             showToast('Autentikasi Berhasil', 'Mengalihkan ke Client Dashboard...');
         }
 
-        // Proposal Download Simulation
+       // Proposal Download Simulation
         function downloadProposalDummy() {
-            showToast('Proposal Diunduh', 'File Proposal PT Whoosh Indonesia Ekspres berhasil diunduh.');
-        }
-
+        showToast('Proposal Diunduh', 'Membuka file proposal PT Whoosh Indonesia Ekspres...');
+        window.open('kerjasama-whooshexpress.pdf', '_blank');
+       }
         // Cost Calculator Matrix
         const tariffMatrix = {
             'jakarta-surabaya': { base: 2500000, time: '2 - 3 Hari' },
