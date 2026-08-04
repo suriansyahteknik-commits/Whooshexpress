@@ -247,13 +247,13 @@
                     </div>
                 </div>
 
-                <!-- ================= HERO SECTION (BERANDA) ================= -->
-<section class="relative bg-[#070e17] w-full py-12 md:py-20 px-4 md:px-8 overflow-hidden">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+               <!-- ================= START: HERO SECTION BERANDA ================= -->
+               <section class="relative bg-[#070e17] w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8 block">
+               <div class="max-w-7xl mx-auto min-h-[85vh] flex flex-col lg:flex-row items-center justify-between gap-10">
         
-        <!-- 1. SISI KIRI: TEKS & TOMBOL CTA -->
-        <div class="space-y-6 text-left z-10">
-            <span class="inline-block px-3.5 py-1.5 bg-amber-500/10 text-amber-500 border border-amber-500/20 text-xs font-bold rounded-full uppercase tracking-wider">
+                <!-- 1. SISI KIRI: TEKS & TOMBOL CTA -->
+                <div class="w-full lg:w-1/2 space-y-6 text-left">
+                <span class="inline-block px-3.5 py-1.5 bg-amber-500/10 text-amber-500 border border-amber-500/20 text-xs font-bold rounded-full uppercase tracking-wider">
                 Satu Partner Platform Nasional
             </span>
             
@@ -261,14 +261,12 @@
                 Platform Pengiriman Kendaraan <span class="text-orange-500">Terintegrasi Nasional</span>
             </h1>
             
-            <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
                 Solusi profesional mobilisasi kendaraan roda empat & truk komersial. Terkoneksi dengan sistem digital real-time, live tracking, dan dieksekusi oleh tim pengemudi berpengalaman.
             </p>
 
-            <!-- Tombol Layanan -->
             <div class="flex flex-wrap gap-4 pt-2">
-                <a href="#" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl text-xs sm:text-sm flex items-center gap-3 transition-all shadow-lg shadow-emerald-500/20">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                <a href="#" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl text-xs sm:text-sm flex items-center gap-2 transition-all">
                     <span>TANYA LAYANAN & HARGA</span>
                 </a>
                 <a href="#" class="bg-slate-800/80 hover:bg-slate-700 text-white font-bold py-3 px-6 rounded-xl text-xs sm:text-sm border border-slate-700 transition-all">
@@ -277,30 +275,28 @@
             </div>
         </div>
 
-        <!-- 2. SISI KANAN: GAMBAR HERO & BADGE -->
-        <div class="relative w-full max-w-lg mx-auto lg:max-w-none mt-6 lg:mt-0">
-            
-            <!-- Bingkai Utama -->
-            <div class="relative bg-slate-800/40 backdrop-blur-md p-3 sm:p-4 rounded-[2rem] border border-white/10 shadow-2xl">
+        <!-- 2. SISI KANAN: GAMBAR & ACTIVE BADGE -->
+        <div class="w-full lg:w-1/2 relative flex justify-center lg:justify-end">
+            <!-- Box Bingkai Gambar -->
+            <div class="relative w-full max-w-md bg-slate-800/40 backdrop-blur-md p-3.5 rounded-[2rem] border border-white/10 shadow-2xl">
                 
-                <!-- Gambar -->
+                <!-- Elemen Foto -->
                 <div class="relative rounded-[1.4rem] overflow-hidden aspect-[4/3] border border-white/5">
                     <img src="driver1.png" alt="Live Tracking Unit" class="w-full h-full object-cover">
                 </div>
 
-                <!-- Badge: Live Tracking Active (Mengambang) -->
-                <div class="absolute -top-3 -right-2 sm:-right-3 z-20 bg-[#0b1727]/90 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl border border-slate-700/80 flex items-center gap-2 shadow-xl">
+                <!-- Badge Live Tracking Active (Sudut Kanan Atas Bingkai) -->
+                <div class="absolute -top-3 right-4 bg-[#0b1727] px-3.5 py-1.5 rounded-xl border border-slate-700 flex items-center gap-2 shadow-xl z-10">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span class="text-[10px] sm:text-xs font-bold text-white tracking-wide">Live Tracking Active</span>
                 </div>
 
             </div>
-
         </div>
 
     </div>
 </section>
-<!-- ================= AKHIR HERO SECTION ================= -->
+<!-- ================= END: HERO SECTION BERANDA ================= -->
 
     <!-- SECTION TENTANG KAMI -->
     <section id="tentang-kami" class="py-20 bg-white relative">
