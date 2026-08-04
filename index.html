@@ -125,7 +125,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
             <a href="#beranda" class="flex items-center shrink-0">
-                <img src="logo-whoosh.png" alt="Whoosh Express Logo" class="h-10 sm:h-12 w-auto object-contain">
+                <img src="logo-whoosh.png" alt="Whoosh Express Logo" class="h-10 sm:h-16 w-auto object-contain">
             </a>
 
                 <div class="hidden xl:flex items-center space-x-6">
@@ -161,16 +161,16 @@
                 <a href="#layanan" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Keunggulan Layanan</a>
                 <a href="#ekosistem" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Sistem Ekosistem</a>
                 
-                <div class="pt-4 mt-2 border-t border-gray-100 flex flex-col gap-3">
-                    <button onclick="openClientModal()" class="w-full bg-whoosh-blue text-white px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow">
-                        <i class="fa-solid fa-shield-halved"></i> Login Client Dashboard
-                    </button>
-                    <button onclick="downloadProposalDummy()" class="w-full bg-gray-100 text-gray-800 px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm">
-                        <i class="fa-solid fa-file-pdf text-red-500"></i> Download Proposal
-                    </button>
-                </div>
-            </div>
+                <div class="flex flex-col gap-3">
+              <button onclick="openClientModal()" class="w-full bg-whoosh-blue text-white px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow">
+             <i class="fa-solid fa-shield-halved"></i> Login Client Dashboard
+          </button>
+           <a href="proposal-kerjasama-whooshexpress.pdf" download class="w-full bg-gray-100 text-gray-800 px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow hover:bg-gray-200 transition-all text-center">
+        <i class="fa-solid fa-file-pdf text-red-500"></i> Download Proposal
+        </a>
+          </div>
         </div>
+      </div>
     </nav>
 
     <section id="beranda" class="relative min-h-[600px] lg:min-h-[680px] pt-12 pb-20 lg:pt-20 lg:pb-28 flex items-center overflow-hidden bg-gray-900">
@@ -185,7 +185,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div class="lg:col-span-7 text-left">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/20 border border-whoosh-orange/50 mb-6 backdrop-blur-md">
-                        <span class="text-whoosh-orange font-bold text-xs tracking-widest uppercase">SATU PLATFORM DIGITAL UNTUK NASIONAL</span>
+                        <span class="text-whoosh-orange font-bold text-base tracking-widest uppercase">SATU PLATFORM DIGITAL UNTUK NASIONAL</span>
                     </div>
                     
                     <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.15] mb-6 tracking-tight">
@@ -511,13 +511,13 @@
                         <div>
                             <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Pilih Layanan</label>
                             <select id="calcServiceType" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-slate-200 focus:outline-none focus:border-whoosh-orange transition-colors">
-                                <option value="towing">Towing Gendong (Eksklusif)</option>
                                 <option value="selfdrive">Self Drive (Ekonomis)</option>
+                                <option value="towing">Towing Gendong (Eksklusif)</option>                            
                                 <option value="carrier">Car Carrier (Multi Unit)</option>
                             </select>
                         </div>
                         <button type="button" id="calcBtn" class="w-full py-4 rounded-xl bg-whoosh-orange hover:bg-whoosh-darkOrange text-white font-bold text-sm transition-all shadow-lg shadow-orange-600/40 flex items-center justify-center gap-2 cursor-pointer">
-                            <i class="fa-solid fa-calculator"></i> Kalkulasi Tarif Sekarang
+                            <i class="fa-solid fa-calculator"></i> Cek Tarif Sekarang
                         </button>
                     </div>
 
