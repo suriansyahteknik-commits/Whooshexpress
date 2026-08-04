@@ -247,24 +247,38 @@
                     </div>
                 </div>
 
-                                  <!-- Floating Live Tracking Card (Sudut Kanan Bawah) -->
-                    <div class="absolute bottom-0 right-0 w-[300px] bg-white/10 backdrop-blur-md border border-white/20 p-2.5 rounded-2xl shadow-2xl">
-                        <div class="relative rounded-xl overflow-hidden aspect-[4/3]">
-                            <img src="driver1.png" 
-                                 alt="Live Tracking Unit" 
-                                 class="w-full h-full object-cover">
-                            
-                            <div class="absolute top-3 right-3 bg-gray-900/90 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-700/80 flex items-center gap-2 shadow-lg">
-                                <span class="w-2 h-4 rounded-full bg-green-400 animate-pulse"></span>
-                                <span class="text-[10px] font-bold text-white tracking-wide">Live Tracking Active</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                  <!-- Main Live Tracking Container -->
+<div class="relative bg-slate-800/40 backdrop-blur-md p-3.5 rounded-[2rem] border border-white/10 shadow-2xl max-w-md w-full">
+    
+    <!-- Gambar Utama -->
+    <div class="relative rounded-[1.4rem] overflow-hidden aspect-[4/3] border border-white/5">
+        <img src="driver1.png" 
+             alt="Live Tracking Unit" 
+             class="w-full h-full object-cover">
+    </div>
 
-            </div>
+    <!-- Badge 1: Live Tracking Active (Sudut Kanan Atas Bingkai) -->
+    <div class="absolute -top-3 -right-3 z-20 bg-[#0b1727]/90 backdrop-blur-md px-4 py-2 rounded-xl border border-slate-700/80 flex items-center gap-2.5 shadow-xl">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-xs font-bold text-white tracking-wide">Live Tracking Active</span>
+    </div>
+
+    <!-- Badge 2: Status BASTK (Sudut Kiri Bawah Bingkai) -->
+    <div class="absolute -bottom-5 -left-6 z-20 bg-white text-slate-900 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-100">
+        <!-- Icon Pin Lokasi -->
+        <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
         </div>
-    </section>
+        <!-- Teks Status -->
+        <div>
+            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">STATUS BASTK</p>
+            <p class="text-xs md:text-sm font-extrabold text-slate-900 leading-tight">Serah Terima Selesai</p>
+        </div>
+    </div>
+
+</div>
 
     <!-- SECTION TENTANG KAMI -->
     <section id="tentang-kami" class="py-20 bg-white relative">
