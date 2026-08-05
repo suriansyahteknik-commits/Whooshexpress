@@ -932,13 +932,20 @@
             });
         }
 
-        // Interactive Leaflet Map Logic
+       <!-- Interactive Leaflet Map Logic -->
+    <script>
         window.addEventListener('load', function() {
             const mapContainer = document.getElementById('logistic-map');
             if (mapContainer && typeof L !== 'undefined') {
                 const map = L.map('logistic-map', {
-                    scrollWheelZoom: false
+                    scrollWheelZoom: false,
+                    zoomControl: false // Posisi kontrol zoom dikustomisasi
                 }).setView([-2.5489, 118.0149], 5);
+
+                // Menambahkan kontrol zoom di pojok kiri atas
+                L.control.zoom({
+                    position: 'topleft'
+                }).addTo(map);
 
                 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                     attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
@@ -960,10 +967,12 @@
                     { name: 'Basecamp Manado', coords: [1.4748, 124.8421], desc: 'Hub Sulawesi Utara' }
                 ];
 
+                // Ikon titik oranye bercahaya
                 const orangeIcon = L.divIcon({
                     className: 'basecamp-marker',
-                    html: '',
-                    iconSize: [12, 12]
+                    html: '<div style="background-color: #F26522; width: 14px; height: 14px; border-radius: 50%; border: 3px solid #ffffff; box-shadow: 0 0 10px rgba(242,101,34,0.8);"></div>',
+                    iconSize: [14, 14],
+                    iconAnchor: [7, 7]
                 });
 
                 basecamps.forEach(bc => {
@@ -972,17 +981,60 @@
                         .bindPopup(`<div style="color: #072442; font-family: Inter, sans-serif;"><strong>${bc.name}</strong><br><span style="font-size:11px;">${bc.desc}</span></div>`);
                 });
 
-                const javaRoute = [ [-6.2088, 106.8456], [-6.9175, 107.6191], [-7.0051, 110.4381], [-7.2575, 112.7521] ];
-                L.polyline(javaRoute, { color: '#F26522', weight: 3, opacity: 0.8 }).addTo(map);
+                // 1. JALUR DARAT (Garis Oranye Solid menyambung dari Jabodetabek -> Bandung -> Semarang -> Surabaya -> Bali)
+                const javaRoute = [ 
+                    [-6.2088, 106.8456], 
+                    [-6.9175, 107.6191], 
+                    [-7.0051, 110.4381], 
+                    [-7.2575, 112.7521],
+                    [-8.4095, 115.1889]
+                ];
+                L.polyline(javaRoute, { color: '#F26522', weight: 3, opacity: 0.9 }).addTo(map);
 
-                const seaRoute1 = [ [-7.2575, 112.7521], [-8.4095, 115.1889] ];
-                L.polyline(seaRoute1, { color: '#38bdf8', weight: 2, dashArray: '6, 8', opacity: 0.7 }).addTo(map);
+                // 2. JALUR LAUT (Garis Putus-putus Biru / Kapal Ro-Ro / Kargo antar pulau)
+                const seaRoutes = [
+                    [[-7.2575, 112.7521], [-8.4095, 115.1889]], // Surabaya - Bali
+                    [[-6.2088, 106.8456], [-1.2379, 116.8529]], // Jabodetabek - Balikpapan
+                    [[-7.2575, 112.7521], [-5.1477, 119.4327]], // Surabaya - Makassar
+                    [[-6.2088, 106.8456], [-0.0263, 109.3425]], // Jabodetabek - Pontianak
+                    [[-7.2575, 112.7521], [-3.3194, 114.5905]], // Surabaya - Banjarmasin
+                    [[-5.1477, 119.4327], [1.4748, 124.8421]]   // Makassar - Manado
+                ];
 
-                const seaRoute2 = [ [-6.2088, 106.8456], [-1.2379, 116.8529] ];
-                L.polyline(seaRoute2, { color: '#38bdf8', weight: 2, dashArray: '6, 8', opacity: 0.7 }).addTo(map);
+                seaRoutes.forEach(route => {
+                    L.polyline(route, { color: '#38bdf8', weight: 2.5, dashArray: '6, 8', opacity: 0.8 }).addTo(map);
+                });
 
-                const seaRoute3 = [ [-7.2575, 112.7521], [-5.1477, 119.4327] ];
-                L.polyline(seaRoute3, { color: '#38bdf8', weight: 2, dashArray: '6, 8', opacity: 0.7 }).addTo(map);
+                // 3. LEGENDA PETA (Di pojok kanan atas)
+                var legend = L.control({position: 'topright'});
+                legend.onAdd = function (map) {
+                    var div = L.DomUtil.create('div', 'info legend');
+                    div.style.background = 'white';
+                    div.style.padding = '12px 15px';
+                    div.style.borderRadius = '8px';
+                    div.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+                    div.style.fontFamily = 'Inter, sans-serif';
+                    div.style.fontSize = '12px';
+                    div.style.lineHeight = '18px';
+                    div.style.color = '#333';
+
+                    div.innerHTML = `
+                        <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+                            <span style="width: 20px; height: 3px; background-color: #F26522; display: inline-block;"></span>
+                            <span style="font-weight: bold; font-size: 11px;">JALUR DARAT (TOWING/SELF-DRIVE)</span>
+                        </div>
+                        <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+                            <span style="width: 20px; height: 0; border-top: 2px dashed #38bdf8; display: inline-block;"></span>
+                            <span style="font-weight: bold; font-size: 11px;">JALUR LAUT (KAPAL RO-RO/KARGO)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="width: 10px; height: 10px; background-color: #F26522; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 3px rgba(0,0,0,0.5); display: inline-block; margin-left: 5px;"></span>
+                            <span style="font-weight: bold; font-size: 11px;">TITIK BASECAMP OPERASIONAL</span>
+                        </div>
+                    `;
+                    return legend;
+                };
+                legend.addTo(map);
             }
         });
     </script>
