@@ -959,11 +959,15 @@
                     { name: 'Basecamp Surabaya', coords: [-7.2575, 112.7521], desc: 'Hub Logistik Jawa Timur' },
                     { name: 'Basecamp Bali', coords: [-8.4095, 115.1889], desc: 'Hub Logistik Denpasar' },
                     { name: 'Basecamp Balikpapan', coords: [-1.2379, 116.8529], desc: 'Hub Kalimantan Timur' },
+                    { name: 'Basecamp Samarinda', coords: [-0.5021, 117.1537], desc: 'Hub Kalimantan Timur (Samarinda)' },
                     { name: 'Basecamp Banjarmasin', coords: [-3.3194, 114.5905], desc: 'Hub Kalimantan Selatan' },
                     { name: 'Basecamp Pontianak', coords: [-0.0263, 109.3425], desc: 'Hub Kalimantan Barat' },
                     { name: 'Basecamp Makassar', coords: [-5.1477, 119.4327], desc: 'Hub Sulawesi Selatan' },
-                    { name: 'Basecamp Kendari', coords: [-3.9972, 122.5126], desc: 'Hub Sulawesi Tenggara' },
-                    { name: 'Basecamp Manado', coords: [1.4748, 124.8421], desc: 'Hub Sulawesi Utara' }
+                    { name: 'Basecamp Mamuju', coords: [-2.6806, 118.8878], desc: 'Hub Sulawesi Barat' },
+                    { name: 'Basecamp Palu', coords: [-0.8917, 119.8707], desc: 'Hub Sulawesi Tengah' },
+                    { name: 'Basecamp Gorontalo', coords: [0.5400, 123.0595], desc: 'Hub Gorontalo' },
+                    { name: 'Basecamp Manado', coords: [1.4748, 124.8421], desc: 'Hub Sulawesi Utara' },
+                    { name: 'Basecamp Kendari', coords: [-3.9972, 122.5126], desc: 'Hub Sulawesi Tenggara' }
                 ];
 
                 // Menggunakan divIcon dengan styling HTML langsung agar titik marker oranye pasti muncul
@@ -980,15 +984,40 @@
                         .bindPopup(`<div style="color: #072442; font-family: Inter, sans-serif;"><strong>${bc.name}</strong><br><span style="font-size:11px;">${bc.desc}</span></div>`);
                 });
 
-                // 1. JALUR DARAT (Garis Oranye Solid menyambung dari Jabodetabek -> Bandung -> Semarang -> Surabaya -> Bali)
-                const javaRoute = [ 
-                    [-6.2088, 106.8456], 
-                    [-6.9175, 107.6191], 
-                    [-7.0051, 110.4381], 
-                    [-7.2575, 112.7521],
-                    [-8.4095, 115.1889]
+                // 1. JALUR DARAT (Garis Oranye Solid mencakup Jawa, serta jalur penghubung darat antar kota di Kalimantan & Sulawesi)
+                const overlandRoutes = [
+                    // Jalur Jawa & Bali
+                    [ 
+                        [-6.2088, 106.8456], // Jabodetabek
+                        [-6.9175, 107.6191], // Bandung
+                        [-7.0051, 110.4381], // Semarang
+                        [-7.2575, 112.7521], // Surabaya
+                        [-8.4095, 115.1889]  // Bali
+                    ],
+                    // Jalur Darat Kalimantan (Pontianak - Banjarmasin - Balikpapan - Samarinda)
+                    [
+                        [-0.0263, 109.3425], // Pontianak
+                        [-3.3194, 114.5905], // Banjarmasin
+                        [-1.2379, 116.8529], // Balikpapan
+                        [-0.5021, 117.1537]  // Samarinda
+                    ],
+                    // Jalur Darat Sulawesi (Makassar - Mamuju - Palu - Gorontalo - Manado, plus cabang ke Kendari)
+                    [
+                        [-5.1477, 119.4327], // Makassar
+                        [-2.6806, 118.8878], // Mamuju
+                        [-0.8917, 119.8707], // Palu
+                        [ 0.5400, 123.0595], // Gorontalo
+                        [ 1.4748, 124.8421]  // Manado
+                    ],
+                    [
+                        [-5.1477, 119.4327], // Makassar
+                        [-3.9972, 122.5126]  // Kendari
+                    ]
                 ];
-                L.polyline(javaRoute, { color: '#F26522', weight: 3, opacity: 0.9 }).addTo(map);
+
+                overlandRoutes.forEach(route => {
+                    L.polyline(route, { color: '#F26522', weight: 3, opacity: 0.9 }).addTo(map);
+                });
 
                 // 2. JALUR LAUT (Garis Putus-putus Biru / Kapal Ro-Ro / Kargo antar pulau)
                 const seaRoutes = [
@@ -996,8 +1025,7 @@
                     [[-6.2088, 106.8456], [-1.2379, 116.8529]], // Jabodetabek - Balikpapan
                     [[-7.2575, 112.7521], [-5.1477, 119.4327]], // Surabaya - Makassar
                     [[-6.2088, 106.8456], [-0.0263, 109.3425]], // Jabodetabek - Pontianak
-                    [[-7.2575, 112.7521], [-3.3194, 114.5905]], // Surabaya - Banjarmasin
-                    [[-5.1477, 119.4327], [1.4748, 124.8421]]   // Makassar - Manado
+                    [[-7.2575, 112.7521], [-3.3194, 114.5905]]  // Surabaya - Banjarmasin
                 ];
 
                 seaRoutes.forEach(route => {
@@ -1026,8 +1054,8 @@
                             <span style="width: 20px; height: 0; border-top: 2px dashed #38bdf8; display: inline-block;"></span>
                             <span style="font-weight: bold; font-size: 11px;">JALUR LAUT (KAPAL RO-RO/KARGO)</span>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="width: 10px; height: 10px; background-color: #F26522; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 3px rgba(0,0,0,0.5); display: inline-block; margin-left: 5px;"></span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 8px; height: 8px; background-color: #F26522; border-radius: 40%; border: 2px solid #fff; box-shadow: 0 0 3px rgba(0,0,0,0.5); display: inline-block; margin-left: 5px;"></span>
                             <span style="font-weight: bold; font-size: 11px;">TITIK BASECAMP OPERASIONAL</span>
                         </div>
                     `;
