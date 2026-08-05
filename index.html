@@ -932,111 +932,111 @@
             });
         }
 
-       <!-- Interactive Leaflet Map Logic -->
-    <script>
-        window.addEventListener('load', function() {
-            const mapContainer = document.getElementById('logistic-map');
-            if (mapContainer && typeof L !== 'undefined') {
-                const map = L.map('logistic-map', {
-                    scrollWheelZoom: false,
-                    zoomControl: false
-                }).setView([-2.5489, 118.0149], 5);
+      <!-- Interactive Leaflet Map Logic -->
+<script>
+    window.addEventListener('load', function() {
+        const mapContainer = document.getElementById('logistic-map');
+        if (mapContainer && typeof L !== 'undefined') {
+            const map = L.map('logistic-map', {
+                scrollWheelZoom: false,
+                zoomControl: false
+            }).setView([-2.5489, 118.0149], 5);
 
-                // Kontrol Zoom di pojok kiri atas
-                L.control.zoom({
-                    position: 'topleft'
-                }).addTo(map);
+            // Kontrol Zoom di pojok kiri atas
+            L.control.zoom({
+                position: 'topleft'
+            }).addTo(map);
 
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-                    maxZoom: 10,
-                    minZoom: 4
-                }).addTo(map);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+                maxZoom: 10,
+                minZoom: 4
+            }).addTo(map);
 
-                const basecamps = [
-                    { name: 'Basecamp Jabodetabek', coords: [-6.2088, 106.8456], desc: 'Kantor Pusat Jl. Radio Dalam V No.71' },
-                    { name: 'Basecamp Bandung', coords: [-6.9175, 107.6191], desc: 'Hub Logistik Jawa Barat' },
-                    { name: 'Basecamp Semarang', coords: [-7.0051, 110.4381], desc: 'Hub Logistik Jawa Tengah' },
-                    { name: 'Basecamp Surabaya', coords: [-7.2575, 112.7521], desc: 'Hub Logistik Jawa Timur' },
-                    { name: 'Basecamp Bali', coords: [-8.4095, 115.1889], desc: 'Hub Logistik Denpasar' },
-                    { name: 'Basecamp Balikpapan', coords: [-1.2379, 116.8529], desc: 'Hub Kalimantan Timur' },
-                    { name: 'Basecamp Banjarmasin', coords: [-3.3194, 114.5905], desc: 'Hub Kalimantan Selatan' },
-                    { name: 'Basecamp Pontianak', coords: [-0.0263, 109.3425], desc: 'Hub Kalimantan Barat' },
-                    { name: 'Basecamp Makassar', coords: [-5.1477, 119.4327], desc: 'Hub Sulawesi Selatan' },
-                    { name: 'Basecamp Kendari', coords: [-3.9972, 122.5126], desc: 'Hub Sulawesi Tenggara' },
-                    { name: 'Basecamp Manado', coords: [1.4748, 124.8421], desc: 'Hub Sulawesi Utara' }
-                ];
+            const basecamps = [
+                { name: 'Basecamp Jabodetabek', coords: [-6.2088, 106.8456], desc: 'Kantor Pusat Jl. Radio Dalam V No.71' },
+                { name: 'Basecamp Bandung', coords: [-6.9175, 107.6191], desc: 'Hub Logistik Jawa Barat' },
+                { name: 'Basecamp Semarang', coords: [-7.0051, 110.4381], desc: 'Hub Logistik Jawa Tengah' },
+                { name: 'Basecamp Surabaya', coords: [-7.2575, 112.7521], desc: 'Hub Logistik Jawa Timur' },
+                { name: 'Basecamp Bali', coords: [-8.4095, 115.1889], desc: 'Hub Logistik Denpasar' },
+                { name: 'Basecamp Balikpapan', coords: [-1.2379, 116.8529], desc: 'Hub Kalimantan Timur' },
+                { name: 'Basecamp Banjarmasin', coords: [-3.3194, 114.5905], desc: 'Hub Kalimantan Selatan' },
+                { name: 'Basecamp Pontianak', coords: [-0.0263, 109.3425], desc: 'Hub Kalimantan Barat' },
+                { name: 'Basecamp Makassar', coords: [-5.1477, 119.4327], desc: 'Hub Sulawesi Selatan' },
+                { name: 'Basecamp Kendari', coords: [-3.9972, 122.5126], desc: 'Hub Sulawesi Tenggara' },
+                { name: 'Basecamp Manado', coords: [1.4748, 124.8421], desc: 'Hub Sulawesi Utara' }
+            ];
 
-                // Menggunakan divIcon dengan styling HTML langsung agar aman dan pasti muncul
-                basecamps.forEach(bc => {
-                    const orangeIcon = L.divIcon({
-                        className: 'custom-orange-marker',
-                        html: '<div style="background-color: #F26522; width: 14px; height: 14px; border-radius: 50%; border: 3px solid #ffffff; box-shadow: 0 0 10px rgba(242,101,34,0.9);"></div>',
-                        iconSize: [14, 14],
-                        iconAnchor: [7, 7]
-                    });
-
-                    L.marker(bc.coords, { icon: orangeIcon })
-                        .addTo(map)
-                        .bindPopup(`<div style="color: #072442; font-family: Inter, sans-serif;"><strong>${bc.name}</strong><br><span style="font-size:11px;">${bc.desc}</span></div>`);
+            // Menggunakan divIcon dengan styling HTML langsung agar aman dan pasti muncul
+            basecamps.forEach(bc => {
+                const orangeIcon = L.divIcon({
+                    className: 'custom-orange-marker',
+                    html: '<div style="background-color: #F26522; width: 14px; height: 14px; border-radius: 50%; border: 3px solid #ffffff; box-shadow: 0 0 10px rgba(242,101,34,0.9);"></div>',
+                    iconSize: [14, 14],
+                    iconAnchor: [7, 7]
                 });
 
-                // 1. JALUR DARAT (Garis Oranye Solid menyambung dari Jabodetabek -> Bandung -> Semarang -> Surabaya -> Bali)
-                const javaRoute = [ 
-                    [-6.2088, 106.8456], 
-                    [-6.9175, 107.6191], 
-                    [-7.0051, 110.4381], 
-                    [-7.2575, 112.7521],
-                    [-8.4095, 115.1889]
-                ];
-                L.polyline(javaRoute, { color: '#F26522', weight: 3, opacity: 0.9 }).addTo(map);
+                L.marker(bc.coords, { icon: orangeIcon })
+                    .addTo(map)
+                    .bindPopup(`<div style="color: #072442; font-family: Inter, sans-serif;"><strong>${bc.name}</strong><br><span style="font-size:11px;">${bc.desc}</span></div>`);
+            });
 
-                // 2. JALUR LAUT (Garis Putus-putus Biru / Kapal Ro-Ro / Kargo antar pulau)
-                const seaRoutes = [
-                    [[-7.2575, 112.7521], [-8.4095, 115.1889]], // Surabaya - Bali
-                    [[-6.2088, 106.8456], [-1.2379, 116.8529]], // Jabodetabek - Balikpapan
-                    [[-7.2575, 112.7521], [-5.1477, 119.4327]], // Surabaya - Makassar
-                    [[-6.2088, 106.8456], [-0.0263, 109.3425]], // Jabodetabek - Pontianak
-                    [[-7.2575, 112.7521], [-3.3194, 114.5905]], // Surabaya - Banjarmasin
-                    [[-5.1477, 119.4327], [1.4748, 124.8421]]   // Makassar - Manado
-                ];
+            // 1. JALUR DARAT (Garis Oranye Solid menyambung dari Jabodetabek -> Bandung -> Semarang -> Surabaya -> Bali)
+            const javaRoute = [ 
+                [-6.2088, 106.8456], 
+                [-6.9175, 107.6191], 
+                [-7.0051, 110.4381], 
+                [-7.2575, 112.7521],
+                [-8.4095, 115.1889]
+            ];
+            L.polyline(javaRoute, { color: '#F26522', weight: 3, opacity: 0.9 }).addTo(map);
 
-                seaRoutes.forEach(route => {
-                    L.polyline(route, { color: '#38bdf8', weight: 2.5, dashArray: '6, 8', opacity: 0.8 }).addTo(map);
-                });
+            // 2. JALUR LAUT (Garis Putus-putus Biru / Kapal Ro-Ro / Kargo antar pulau)
+            const seaRoutes = [
+                [[-7.2575, 112.7521], [-8.4095, 115.1889]], // Surabaya - Bali
+                [[-6.2088, 106.8456], [-1.2379, 116.8529]], // Jabodetabek - Balikpapan
+                [[-7.2575, 112.7521], [-5.1477, 119.4327]], // Surabaya - Makassar
+                [[-6.2088, 106.8456], [-0.0263, 109.3425]], // Jabodetabek - Pontianak
+                [[-7.2575, 112.7521], [-3.3194, 114.5905]], // Surabaya - Banjarmasin
+                [[-5.1477, 119.4327], [1.4748, 124.8421]]   // Makassar - Manado
+            ];
 
-                // 3. LEGENDA PETA (Di pojok kanan atas)
-                var legend = L.control({position: 'topright'});
-                legend.onAdd = function (map) {
-                    var div = L.DomUtil.create('div', 'info legend');
-                    div.style.background = 'white';
-                    div.style.padding = '12px 15px';
-                    div.style.borderRadius = '8px';
-                    div.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
-                    div.style.fontFamily = 'Inter, sans-serif';
-                    div.style.fontSize = '12px';
-                    div.style.lineHeight = '18px';
-                    div.style.color = '#333';
+            seaRoutes.forEach(route => {
+                L.polyline(route, { color: '#38bdf8', weight: 2.5, dashArray: '6, 8', opacity: 0.8 }).addTo(map);
+            });
 
-                    div.innerHTML = `
-                        <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
-                            <span style="width: 20px; height: 3px; background-color: #F26522; display: inline-block;"></span>
-                            <span style="font-weight: bold; font-size: 11px;">JALUR DARAT (TOWING/SELF-DRIVE)</span>
-                        </div>
-                        <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
-                            <span style="width: 20px; height: 0; border-top: 2px dashed #38bdf8; display: inline-block;"></span>
-                            <span style="font-weight: bold; font-size: 11px;">JALUR LAUT (KAPAL RO-RO/KARGO)</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="width: 10px; height: 10px; background-color: #F26522; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 3px rgba(0,0,0,0.5); display: inline-block; margin-left: 5px;"></span>
-                            <span style="font-weight: bold; font-size: 11px;">TITIK BASECAMP OPERASIONAL</span>
-                        </div>
-                    `;
-                    return legend;
-                };
-                legend.addTo(map);
-            }
-        });
-    </script>
+            // 3. LEGENDA PETA (Di pojok kanan atas)
+            var legend = L.control({position: 'topright'});
+            legend.onAdd = function (map) {
+                var div = L.DomUtil.create('div', 'info legend');
+                div.style.background = 'white';
+                div.style.padding = '12px 15px';
+                div.style.borderRadius = '8px';
+                div.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+                div.style.fontFamily = 'Inter, sans-serif';
+                div.style.fontSize = '12px';
+                div.style.lineHeight = '18px';
+                div.style.color = '#333';
+
+                div.innerHTML = `
+                    <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 20px; height: 3px; background-color: #F26522; display: inline-block;"></span>
+                        <span style="font-weight: bold; font-size: 11px;">JALUR DARAT (TOWING/SELF-DRIVE)</span>
+                    </div>
+                    <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 20px; height: 0; border-top: 2px dashed #38bdf8; display: inline-block;"></span>
+                        <span style="font-weight: bold; font-size: 11px;">JALUR LAUT (KAPAL RO-RO/KARGO)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 10px; height: 10px; background-color: #F26522; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 3px rgba(0,0,0,0.5); display: inline-block; margin-left: 5px;"></span>
+                        <span style="font-weight: bold; font-size: 11px;">TITIK BASECAMP OPERASIONAL</span>
+                    </div>
+                `;
+                return legend;
+            };
+            legend.addTo(map);
+        }
+    });
+</script>
 </body>
 </html>
