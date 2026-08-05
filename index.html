@@ -1046,7 +1046,7 @@
             });
         }
 
-     // Interactive Leaflet Map Logic - Premium Dark Dashboard Mode
+   // Interactive Leaflet Map Logic - Premium Dark Dashboard Mode
 window.addEventListener('load', function() {
     const mapContainer = document.getElementById('logistic-map');
     if (mapContainer && typeof L !== 'undefined') {
@@ -1155,6 +1155,29 @@ window.addEventListener('load', function() {
 
             .leaflet-popup-tip {
                 background: rgba(8, 19, 41, 0.95) !important;
+            }
+
+            /* ========================================================= */
+            /* OPTIMASI TAMPILAN KHUSUS LAYAR HP (Dibawah 640px)          */
+            /* ========================================================= */
+            @media (max-width: 640px) {
+                .legend-card {
+                    padding: 6px 8px !important;
+                    min-width: 130px !important;
+                    max-width: 180px !important;
+                    border-radius: 6px !important;
+                }
+                .legend-header {
+                    font-size: 8px !important;
+                    letter-spacing: 0.5px !important;
+                    margin-bottom: 4px !important;
+                    padding-bottom: 3px !important;
+                }
+                .legend-row {
+                    gap: 5px !important;
+                    margin-bottom: 3px !important;
+                    font-size: 8px !important;
+                }
             }
         `;
         document.head.appendChild(customStyle);
