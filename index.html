@@ -193,15 +193,16 @@
         </div>
     </nav>
     
-   <!-- Hero Section (Beranda) -->
-    <section id="beranda" class="relative min-h-[600px] lg:min-h-[680px] pt-12 pb-20 lg:pt-20 lg:pb-28 flex items-center overflow-hidden bg-gray-900">
+  <!-- Hero Section (Beranda) -->
+    <section id="beranda" class="relative min-h-[600px] lg:min-h-[680px] pt-12 pb-20 lg:pt-20 lg:pb-28 flex items-center overflow-hidden bg-[#0666ac]">
         
-        <!-- Background Bayangan Driver (Sesuai kode yang Anda berikan) -->
+        <!-- Background Bayangan Driver -->
         <div class="absolute inset-0 z-0">
             <img src="driver2.png" 
                  alt="Car Carrier Truck Background" 
                  class="w-full h-full object-cover object-center opacity-70">
-            <div class="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-900/90 to-gray-900/40"></div>
+            <!-- Overlay Gradient menggunakan warna biru baru Anda (#0666ac) -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#044273] via-[#0666ac]/90 to-[#0666ac]/40"></div>
         </div>
         
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -218,7 +219,7 @@
                         <span class="text-whoosh-orange">Terintegrasi Nasional</span>
                     </h1>
                     
-                    <p class="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed max-w-2xl font-normal">
+                    <p class="text-base sm:text-lg text-gray-100 mb-8 leading-relaxed max-w-2xl font-normal">
                         Solusi profesional mobilisasi kendaraan roda empat & truk komersial. Terkoneksi dengan sistem digital real-time, live tracking 24/7, dan dieksekusi oleh tim pengemudi berstandar tinggi.
                     </p>
 
@@ -235,10 +236,10 @@
                         </a>
 
                         <!-- 2. Download Proposal -->
-                        <a href="#" class="flex items-center gap-3 bg-gray-800/60 border border-gray-600 hover:bg-gray-700 text-white px-5 py-3 rounded-lg font-bold transition-all backdrop-blur-sm">
+                        <a href="kerjasama-whooshexpress.pdf" download="Proposal_Kerjasama_Whoosh_Express.pdf" class="flex items-center gap-3 bg-[#044273]/60 border border-[#4895d3] hover:bg-[#044273] text-white px-5 py-3 rounded-lg font-bold transition-all backdrop-blur-sm">
                             <i class="fa-solid fa-file-pdf text-2xl text-red-400"></i>
                             <div class="text-left leading-tight">
-                                <span class="block text-[10px] uppercase font-semibold text-gray-300">Pelajari Layanan Kami</span>
+                                <span class="block text-[10px] uppercase font-semibold text-gray-200">Pelajari Layanan Kami</span>
                                 <span class="block text-base">Download Proposal</span>
                             </div>
                         </a>
@@ -250,9 +251,9 @@
                     </div>
                     
                     <!-- Info Email Marketing -->
-                    <div class="text-sm text-gray-400 flex items-center gap-2 ml-1">
+                    <div class="text-sm text-gray-200 flex items-center gap-2 ml-1">
                         <i class="fa-regular fa-envelope text-whoosh-orange"></i>
-                        <span>Email: <a href="mailto:marketing@whooshexpress.com" class="text-white hover:text-whoosh-orange transition-colors underline decoration-gray-600">marketing@whooshexpress.com</a></span>
+                        <span>Email: <a href="mailto:marketing@whooshexpress.com" class="text-white hover:text-whoosh-orange transition-colors underline decoration-[#4895d3]">marketing@whooshexpress.com</a></span>
                     </div>
 
                 </div>
@@ -260,17 +261,17 @@
                 <!-- Kanan: Gambar Live Tracking Besar Animasi -->
                 <div class="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2 w-full relative z-20">
                     
-                    <!-- Frame Bingkai (Disesuaikan warnanya agar menyatu dengan background abu-abu gelap) -->
-                    <div class="relative w-full max-w-[500px] aspect-[4/3] rounded-3xl p-3 sm:p-5 bg-gray-800/40 border border-white/10 shadow-2xl backdrop-blur-md animate-floating">
+                    <!-- Frame Bingkai (Warna disesuaikan ke biru muda transparan agar pas dengan #0666ac) -->
+                    <div class="relative w-full max-w-[500px] aspect-[4/3] rounded-3xl p-3 sm:p-5 bg-[#4895d3]/30 border border-white/20 shadow-2xl backdrop-blur-md animate-floating">
                         
-                        <!-- Gambar Utama Live Tracking (Menggunakan driver1.png) -->
-                        <div class="relative w-full h-full rounded-xl overflow-hidden bg-gray-950 border border-gray-700/50 shadow-inner">
+                        <!-- Gambar Utama Live Tracking -->
+                        <div class="relative w-full h-full rounded-xl overflow-hidden bg-[#044273] border border-[#4895d3]/50 shadow-inner">
                             <img src="driver1.png" 
                                  alt="Live Tracking Unit Whoosh Express" 
                                  class="w-full h-full object-cover animate-kenburns">
                         </div>
 
-                        <!-- Kartu Status Live Tracking (Mengambang di kiri bawah) -->
+                        <!-- Kartu Status Live Tracking -->
                         <div class="absolute -bottom-6 -left-2 sm:-left-8 sm:-bottom-8 bg-white rounded-2xl shadow-2xl p-4 sm:p-5 flex items-center gap-4 z-30 border border-gray-100 hover:scale-105 transition-transform duration-300">
                             <!-- Ikon Pin Map -->
                             <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center relative shrink-0">
@@ -282,7 +283,8 @@
                             <!-- Teks Status -->
                             <div class="pr-4">
                                 <p class="text-[11px] sm:text-xs text-gray-500 font-semibold mb-0.5">Status Pengiriman</p>
-                                <p class="text-sm sm:text-base font-extrabold text-gray-900 flex items-center gap-2">
+                                <!-- Teks diubah menggunakan warna biru yang baru -->
+                                <p class="text-sm sm:text-base font-extrabold text-[#0666ac] flex items-center gap-2">
                                     Live Tracking Aktif
                                 </p>
                             </div>
