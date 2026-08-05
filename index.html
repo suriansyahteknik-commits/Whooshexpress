@@ -939,10 +939,10 @@
             if (mapContainer && typeof L !== 'undefined') {
                 const map = L.map('logistic-map', {
                     scrollWheelZoom: false,
-                    zoomControl: false // Posisi kontrol zoom dikustomisasi
+                    zoomControl: false
                 }).setView([-2.5489, 118.0149], 5);
 
-                // Menambahkan kontrol zoom di pojok kiri atas
+                // Kontrol Zoom di pojok kiri atas
                 L.control.zoom({
                     position: 'topleft'
                 }).addTo(map);
@@ -967,15 +967,15 @@
                     { name: 'Basecamp Manado', coords: [1.4748, 124.8421], desc: 'Hub Sulawesi Utara' }
                 ];
 
-                // Ikon titik oranye bercahaya
-                const orangeIcon = L.divIcon({
-                    className: 'basecamp-marker',
-                    html: '<div style="background-color: #F26522; width: 14px; height: 14px; border-radius: 50%; border: 3px solid #ffffff; box-shadow: 0 0 10px rgba(242,101,34,0.8);"></div>',
-                    iconSize: [14, 14],
-                    iconAnchor: [7, 7]
-                });
-
+                // Menggunakan divIcon dengan styling HTML langsung agar aman dan pasti muncul
                 basecamps.forEach(bc => {
+                    const orangeIcon = L.divIcon({
+                        className: 'custom-orange-marker',
+                        html: '<div style="background-color: #F26522; width: 14px; height: 14px; border-radius: 50%; border: 3px solid #ffffff; box-shadow: 0 0 10px rgba(242,101,34,0.9);"></div>',
+                        iconSize: [14, 14],
+                        iconAnchor: [7, 7]
+                    });
+
                     L.marker(bc.coords, { icon: orangeIcon })
                         .addTo(map)
                         .bindPopup(`<div style="color: #072442; font-family: Inter, sans-serif;"><strong>${bc.name}</strong><br><span style="font-size:11px;">${bc.desc}</span></div>`);
