@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PT. Whoosh Indonesia Ekspres - National Vehicle Delivery Platform</title>
     
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
@@ -26,15 +29,27 @@
                     },
                     colors: {
                         whoosh: {
-                            blue: '#0B3A68',
-                            lightBlue: '#155B9E',
+                            blue: '#17385A', /* Disesuaikan dengan warna image_840d86.jpg */
+                            lightBlue: '#2A4E74',
                             orange: '#F26522',
                             darkOrange: '#D15215',
-                            dark: '#072442'
+                            dark: '#0f263d'
+                        }
+                    },
+                    keyframes: {
+                        floating: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        kenburns: {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.15)' },
                         }
                     },
                     animation: {
                         'bounce-slow': 'bounce 3s infinite',
+                        'floating': 'floating 6s ease-in-out infinite',
+                        'kenburns': 'kenburns 20s ease-out infinite alternate',
                     }
                 }
             }
@@ -61,6 +76,8 @@
             height: 100%;
             background-color: #E5E7EB;
             z-index: 0;
+            border-left: 2px dashed #0B3A68;
+            opacity: 0.3;
         }
         @media (max-width: 768px) {
             .timeline-line {
@@ -99,6 +116,7 @@
 </head>
 <body class="font-sans text-gray-800 antialiased bg-gray-50 flex flex-col min-h-screen">
 
+    <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/6282295959933?text=Halo%20Whoosh%20Express,%20saya%20ingin%20mengajukan%20kerjasama%20pengiriman%20kendaraan." 
        target="_blank" 
        rel="noopener noreferrer" 
@@ -107,6 +125,7 @@
         <i class="fa-brands fa-whatsapp text-3xl"></i>
     </a>
 
+    <!-- Top Bar -->
     <div class="bg-whoosh-dark text-white text-xs py-2 px-4 border-b border-blue-900/50 hidden md:block">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-6">
@@ -121,7 +140,7 @@
         </div>
     </div>
 
-    <!-- NAVBAR MAIN -->
+    <!-- Main Navigation -->
     <nav class="sticky top-0 w-full z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -132,8 +151,7 @@
                 <div class="hidden xl:flex items-center space-x-6">
                     <a href="#beranda" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Beranda</a>
                     <a href="#tentang-kami" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Tentang Perusahaan</a>
-                    <a href="#struktur-organisasi" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Struktur</a>
-                    <a href="#peta-jaringan" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Peta Jaringan</a>
+                    <a href="#struktur-organisasi" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Jaringan</a>
                     <a href="#kalkulator" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Estimasi Tarif</a>
                     <a href="#layanan" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Layanan</a>
                     <a href="#ekosistem" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Ekosistem</a>
@@ -142,7 +160,7 @@
                 <div class="flex items-center gap-3">
                     <button onclick="openClientModal()" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-whoosh-blue to-whoosh-lightBlue hover:from-whoosh-lightBlue hover:to-whoosh-blue text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg border border-blue-400/30 group">
                         <i class="fa-solid fa-shield-halved text-blue-200 group-hover:text-white transition-colors"></i>
-                        <span>Client Dashboard Login</span>
+                        <span>Client Dashboard</span>
                     </button>
 
                     <button id="mobile-menu-btn" class="xl:hidden text-gray-700 hover:text-whoosh-blue focus:outline-none p-2 rounded-lg bg-gray-100">
@@ -152,32 +170,33 @@
             </div>
         </div>
 
-        <!-- MOBILE MENU (DIPERBAIKI) -->
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full left-0">
             <div class="px-4 pt-3 pb-6 space-y-2">
                 <a href="#beranda" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Beranda</a>
                 <a href="#tentang-kami" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Tentang Perusahaan</a>
                 <a href="#struktur-organisasi" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Struktur & Jaringan</a>
-                <a href="#peta-jaringan" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Peta Jaringan Nasional</a>
                 <a href="#kalkulator" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Kalkulator Tarif</a>
                 <a href="#layanan" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Keunggulan Layanan</a>
                 <a href="#ekosistem" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Sistem Ekosistem</a>
                 
-              <div class="pt-3 flex flex-col gap-2">
-              <button onclick="openClientModal()" class="w-full bg-whoosh-blue text-white px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow">
-             <i class="fa-solid fa-shield-halved"></i> Login Client Dashboard
-            </button>
-           <a href="kerjasama-whooshexpress.pdf" download="kerjasama-whooshexpress.pdf" target="_blank" 
-            class="w-full bg-gray-800/80 hover:bg-gray-800 border border-gray-700 px-4 py-3 rounded-xl flex items-center justify-center gap-2 text-sm transition-all shadow text-white">
-             <i class="fa-solid fa-file-pdf text-red-500"></i> Download Proposal
-          </a>
-            </div>
+                <div class="pt-3 flex flex-col gap-2">
+                    <button onclick="openClientModal()" class="w-full bg-whoosh-blue text-white px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow">
+                        <i class="fa-solid fa-shield-halved"></i> Login Client Dashboard
+                    </button>
+                    <a href="kerjasama-whooshexpress.pdf" download="kerjasama-whooshexpress.pdf" target="_blank" 
+                        class="w-full bg-gray-800/80 hover:bg-gray-800 border border-gray-700 px-4 py-3 rounded-xl flex items-center justify-center gap-2 text-sm transition-all shadow text-white">
+                        <i class="fa-solid fa-file-pdf text-red-500"></i> Download Proposal
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
     
+   <!-- Hero Section (Beranda) -->
     <section id="beranda" class="relative min-h-[600px] lg:min-h-[680px] pt-12 pb-20 lg:pt-20 lg:pb-28 flex items-center overflow-hidden bg-gray-900">
+        
+        <!-- Background Bayangan Driver (Sesuai kode yang Anda berikan) -->
         <div class="absolute inset-0 z-0">
             <img src="driver2.png" 
                  alt="Car Carrier Truck Background" 
@@ -186,59 +205,125 @@
         </div>
         
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div class="lg:col-span-7 text-left">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/20 border border-whoosh-orange/50 mb-6 backdrop-blur-md">
-                        <span class="text-whoosh-orange font-bold text-base tracking-widest uppercase">SATU PLATFORM DIGITAL UNTUK NASIONAL</span>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Kiri: Teks dan Tombol Pilihan -->
+                <div class="lg:col-span-7 text-left order-2 lg:order-1">
+                    <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-whoosh-orange/40 mb-6 bg-whoosh-orange/10 backdrop-blur-sm">
+                        <span class="text-whoosh-orange font-bold text-xs tracking-widest uppercase">SATU PLATFORM DIGITAL UNTUK NASIONAL</span>
                     </div>
                     
-                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.15] mb-6 tracking-tight">
-                        Platform Pengiriman Kendaraan
-                        <span class="block text-whoosh-orange mt-1">Terintegrasi Nasional</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-[55px] font-black text-white leading-[1.1] mb-6 tracking-tight">
+                        Platform Pengiriman<br>Kendaraan<br>
+                        <span class="text-whoosh-orange">Terintegrasi Nasional</span>
                     </h1>
                     
-                    <p class="text-sm sm:text-base text-gray-200 mb-8 leading-relaxed max-w-2xl font-normal">
+                    <p class="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed max-w-2xl font-normal">
                         Solusi profesional mobilisasi kendaraan roda empat & truk komersial. Terkoneksi dengan sistem digital real-time, live tracking 24/7, dan dieksekusi oleh tim pengemudi berstandar tinggi.
                     </p>
 
-                    <div class="flex flex-wrap gap-4 items-center">
-                        <a href="https://wa.me/6282295959933?text=Halo%20Whoosh%20Express,%20saya%20ingin%20mengajukan%20kerjasama." 
-                           target="_blank" 
-                           class="bg-green-500 hover:bg-green-600 text-white px-6 py-3.5 rounded-xl font-bold shadow-lg transition-all flex items-center gap-3 border border-green-400/30">
+                    <!-- 3 Pilihan Aksi Utama -->
+                    <div class="flex flex-wrap gap-4 items-center mb-6">
+                        
+                        <!-- 1. Hubungi WhatsApp -->
+                        <a href="https://wa.me/6282295959933" target="_blank" class="flex items-center gap-3 bg-[#25D366] hover:bg-green-600 text-white px-5 py-3 rounded-lg font-bold transition-all shadow-lg shadow-green-500/20">
                             <i class="fa-brands fa-whatsapp text-2xl"></i>
                             <div class="text-left leading-tight">
-                                <span class="block text-[10px] text-green-100 tracking-wider uppercase font-semibold">Tanya Layanan & Harga</span>
-                                <span class="text-sm font-extrabold">0822 9595 9933</span>
+                                <span class="block text-[10px] uppercase font-semibold text-green-100">Tanya Layanan & Harga</span>
+                                <span class="block text-base tracking-wide">0822 9595 9933</span>
                             </div>
                         </a>
 
-                        <a href="kerjasama-whooshexpress.pdf" download="kerjasama-whooshexpress.pdf" target="_blank" 
-               class="bg-white/15 hover:bg-white/25 text-white border border-white/20 px-6 py-3.5 rounded-xl font-bold transition-all flex items-center gap-3 backdrop-blur-md cursor-pointer">
-                <i class="fa-solid fa-file-pdf text-red-400 text-xl"></i>
-               <div class="text-left leading-tight">
-                <span class="block text-[10px] text-gray-300 tracking-wider uppercase font-semibold">Pelajari Layanan Kami</span>
-                   <span class="text-sm">Download Proposal</span>
-                  </div>
-              </a>
-           </div>
-        </div>
+                        <!-- 2. Download Proposal -->
+                        <a href="#" class="flex items-center gap-3 bg-gray-800/60 border border-gray-600 hover:bg-gray-700 text-white px-5 py-3 rounded-lg font-bold transition-all backdrop-blur-sm">
+                            <i class="fa-solid fa-file-pdf text-2xl text-red-400"></i>
+                            <div class="text-left leading-tight">
+                                <span class="block text-[10px] uppercase font-semibold text-gray-300">Pelajari Layanan Kami</span>
+                                <span class="block text-base">Download Proposal</span>
+                            </div>
+                        </a>
 
-                <div class="hidden lg:block absolute bottom-0 right-0 w-[300px] bg-white/10 backdrop-blur-md border border-white/20 p-2.5 rounded-2xl shadow-2xl">
-                    <div class="relative rounded-xl overflow-hidden aspect-[4/3]">
-                        <img src="driver1.png" 
-                             alt="Live Tracking Unit" 
-                             class="w-full h-full object-cover">
+                        <!-- 3. Jelajahi Layanan -->
+                        <a href="#layanan" class="flex items-center justify-center bg-transparent hover:bg-white/10 text-white border border-white px-7 py-3.5 rounded-full font-bold transition-all text-sm sm:text-base backdrop-blur-sm self-stretch">
+                            Jelajahi Layanan
+                        </a>
+                    </div>
+                    
+                    <!-- Info Email Marketing -->
+                    <div class="text-sm text-gray-400 flex items-center gap-2 ml-1">
+                        <i class="fa-regular fa-envelope text-whoosh-orange"></i>
+                        <span>Email: <a href="mailto:marketing@whooshexpress.com" class="text-white hover:text-whoosh-orange transition-colors underline decoration-gray-600">marketing@whooshexpress.com</a></span>
+                    </div>
+
+                </div>
+
+                <!-- Kanan: Gambar Live Tracking Besar Animasi -->
+                <div class="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2 w-full relative z-20">
+                    
+                    <!-- Frame Bingkai (Disesuaikan warnanya agar menyatu dengan background abu-abu gelap) -->
+                    <div class="relative w-full max-w-[500px] aspect-[4/3] rounded-3xl p-3 sm:p-5 bg-gray-800/40 border border-white/10 shadow-2xl backdrop-blur-md animate-floating">
                         
-                        <div class="absolute top-3 right-3 bg-gray-900/90 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-700/80 flex items-center gap-2 shadow-lg">
-                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                            <span class="text-[10px] font-bold text-white tracking-wide">Live Tracking Active</span>
+                        <!-- Gambar Utama Live Tracking (Menggunakan driver1.png) -->
+                        <div class="relative w-full h-full rounded-xl overflow-hidden bg-gray-950 border border-gray-700/50 shadow-inner">
+                            <img src="driver1.png" 
+                                 alt="Live Tracking Unit Whoosh Express" 
+                                 class="w-full h-full object-cover animate-kenburns">
                         </div>
+
+                        <!-- Kartu Status Live Tracking (Mengambang di kiri bawah) -->
+                        <div class="absolute -bottom-6 -left-2 sm:-left-8 sm:-bottom-8 bg-white rounded-2xl shadow-2xl p-4 sm:p-5 flex items-center gap-4 z-30 border border-gray-100 hover:scale-105 transition-transform duration-300">
+                            <!-- Ikon Pin Map -->
+                            <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center relative shrink-0">
+                                <i class="fa-solid fa-location-dot text-green-500 text-2xl z-10"></i>
+                                <!-- Efek Sonar/Pulse pada Ikon -->
+                                <div class="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-30"></div>
+                            </div>
+                            
+                            <!-- Teks Status -->
+                            <div class="pr-4">
+                                <p class="text-[11px] sm:text-xs text-gray-500 font-semibold mb-0.5">Status Pengiriman</p>
+                                <p class="text-sm sm:text-base font-extrabold text-gray-900 flex items-center gap-2">
+                                    Live Tracking Aktif
+                                </p>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Professional Statistics Strip -->
+    <section class="py-12 bg-gradient-to-r from-whoosh-blue to-whoosh-lightBlue relative">
+        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSI+PC9yZWN0Pgo8cGF0aCBkPSJNMCAwbDhfOHptOCAwTDBfOHoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9IjAuNCIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+Cjwvc3ZnPg==')]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/20">
+                <div class="px-4">
+                    <div class="text-whoosh-orange text-4xl mb-3"><i class="fa-solid fa-users"></i></div>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-2">22+</h3>
+                    <p class="text-blue-100 text-sm font-medium">Driver Internal & Mitra Terverifikasi</p>
+                </div>
+                <div class="px-4">
+                    <div class="text-whoosh-orange text-4xl mb-3"><i class="fa-solid fa-car-side"></i></div>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-2">550+</h3>
+                    <p class="text-blue-100 text-sm font-medium">Kapasitas Mobilisasi Unit / Bulan</p>
+                </div>
+                <div class="px-4">
+                    <div class="text-whoosh-orange text-4xl mb-3"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-2">34+</h3>
+                    <p class="text-blue-100 text-sm font-medium">Kota Besar Terhubung</p>
+                </div>
+                <div class="px-4">
+                    <div class="text-whoosh-orange text-4xl mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-2">100%</h3>
+                    <p class="text-blue-100 text-sm font-medium">SLA Terukur & Terpantau</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Company -->
     <section id="tentang-kami" class="py-20 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -263,7 +348,6 @@
                             </h4>
                             <p class="text-xs text-gray-600 leading-relaxed">Integrasi teknologi web dashboard, jaringan basecamp nasional, & pelacakan real-time melalui aplikasi mobile.</p>
                         </div>
-
                         <div class="bg-orange-50 border-l-4 border-whoosh-orange p-5 rounded-r-xl transition-all hover:shadow-md">
                             <h4 class="font-bold text-whoosh-blue text-sm mb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-handshake text-whoosh-orange"></i> Kemitraan Strategis
@@ -278,7 +362,6 @@
                         <h3 class="text-xl font-bold text-center text-whoosh-blue mb-6 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-shield-halved text-whoosh-orange"></i> Nilai Inti Perusahaan (WHOOSH)
                         </h3>
-                        
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-3 hover:border-whoosh-blue transition-colors">
                                 <div class="w-10 h-10 bg-whoosh-blue text-white rounded-lg flex justify-center items-center font-black text-lg shrink-0">W</div>
@@ -329,103 +412,41 @@
         </div>
     </section>
 
+    <!-- Organizational Network & Interactive Map -->
     <section id="struktur-organisasi" class="py-20 bg-gray-100 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-100 px-3 py-1 rounded-full">Kekuatan Jaringan</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">Infrastruktur & Jaringan Operasional</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">Infrastruktur & Jangkauan Nasional</h2>
                 <div class="w-24 h-1 bg-whoosh-orange mx-auto rounded-full mb-4"></div>
-                <p class="text-gray-600 text-sm">Organisasi yang terstruktur dan kehadiran 11 basecamp operasional strategis di berbagai provinsi untuk mendukung jangkauan nasional.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-                <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-whoosh-blue hover:-translate-y-1 transition-transform">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-blue-50 text-whoosh-blue rounded-xl flex items-center justify-center text-xl shrink-0">
-                            <i class="fa-solid fa-truck-fast"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg text-whoosh-blue leading-tight">Divisi Operasional</h3>
-                            <span class="text-[11px] text-gray-500">Koordinasi & Eksekusi Pengiriman</span>
-                        </div>
+            <!-- Map Integration -->
+            <div class="relative bg-white/5 border border-white/10 p-2 rounded-3xl shadow-2xl backdrop-blur-sm mb-16">
+                <div class="absolute top-6 right-6 z-[20] bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-gray-200 pointer-events-none hidden sm:block">
+                    <h4 class="font-bold text-xs text-gray-800 mb-3 border-b border-gray-200 pb-2">Keterangan Peta</h4>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-6 h-1 bg-whoosh-orange rounded-full"></div>
+                        <span class="text-[10px] font-semibold text-gray-600 uppercase">Jalur Darat (Towing/Self-drive)</span>
                     </div>
-                    <div class="space-y-3">
-                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <h4 class="font-bold text-sm text-gray-800 mb-1">PIC Area Jabodetabek</h4>
-                            <p class="text-[10px] text-gray-500"><i class="fa-solid fa-location-dot text-whoosh-orange mr-1"></i> Mengkover Jakarta, Bogor, Depok, Tangerang, Bekasi</p>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <h4 class="font-bold text-sm text-gray-800 mb-1">PIC Area Jawa & Bali</h4>
-                            <p class="text-[10px] text-gray-500"><i class="fa-solid fa-location-dot text-whoosh-orange mr-1"></i> Jabar, Jateng, DIY, Jatim, dan sekitarnya</p>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <h4 class="font-bold text-sm text-gray-800 mb-1">PIC Kalimantan & Sulawesi</h4>
-                            <p class="text-[10px] text-gray-500"><i class="fa-solid fa-location-dot text-whoosh-orange mr-1"></i> Jaringan lintas pulau dan pelabuhan</p>
-                        </div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-6 h-1 border-t-2 border-dashed border-sky-400"></div>
+                        <span class="text-[10px] font-semibold text-gray-600 uppercase">Jalur Laut (Kapal Ro-Ro/Kargo)</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-3 h-3 bg-whoosh-orange border-2 border-white rounded-full shadow-sm"></div>
+                        <span class="text-[10px] font-semibold text-gray-600 uppercase">Titik Basecamp Operasional</span>
                     </div>
                 </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-whoosh-orange hover:-translate-y-1 transition-transform">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-orange-50 text-whoosh-orange rounded-xl flex items-center justify-center text-xl shrink-0">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg text-whoosh-blue leading-tight">Divisi Digital IT</h3>
-                            <span class="text-[11px] text-gray-500">Pengembangan Platform & Aplikasi</span>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <h4 class="font-bold text-sm text-gray-800">IT Infrastructure Manager</h4>
-                            <p class="text-[10px] text-gray-500">Arsitektur & Keamanan Server</p>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <h4 class="font-bold text-sm text-gray-800">App Developers (FE/BE)</h4>
-                            <p class="text-[10px] text-gray-500">Pengembang Web Dashboard & Mobile App</p>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <h4 class="font-bold text-sm text-gray-800">System Support & QA</h4>
-                            <p class="text-[10px] text-gray-500">Testing, Maintenance & Bantuan Pengguna</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-green-500 hover:-translate-y-1 transition-transform">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                            <i class="fa-solid fa-calculator"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg text-whoosh-blue leading-tight">Divisi Finance & Admin</h3>
-                            <span class="text-[11px] text-gray-500">Administrasi, Invoicing & Cash Flow</span>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <h4 class="font-bold text-sm text-gray-800 mb-1">Admin Invoicing Client</h4>
-                            <p class="text-[10px] text-gray-500">Rekap order, penerbitan invoice, dan pemantauan AR</p>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <h4 class="font-bold text-sm text-gray-800 mb-1">Admin Payment Operational</h4>
-                            <p class="text-[10px] text-gray-500">Distribusi biaya jalan driver, pembayaran vendor kapal/towing</p>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <h4 class="font-bold text-sm text-gray-800 mb-1">Legal & Compliance</h4>
-                            <p class="text-[10px] text-gray-500">Kontrak kerjasama & asuransi perlindungan aset</p>
-                        </div>
-                    </div>
-                </div>
+                <div id="logistic-map" class="w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden bg-gray-900 z-10"></div>
             </div>
-
+            
             <div class="bg-gradient-to-r from-whoosh-blue via-whoosh-lightBlue to-whoosh-blue text-white rounded-3xl p-8 lg:p-10 shadow-2xl relative overflow-hidden">
                 <div class="relative z-10 text-center mb-10">
                     <h3 class="text-2xl md:text-3xl font-bold text-white flex items-center justify-center gap-3">
-                        <i class="fa-solid fa-map-location-dot text-whoosh-orange text-3xl"></i> Jaringan 11 Basecamp Nasional
+                        <i class="fa-solid fa-map-location-dot text-whoosh-orange text-3xl"></i> 11 Basecamp Siaga Nasional
                     </h3>
-                    <p class="text-sm text-blue-100 mt-2 max-w-2xl mx-auto">Titik operasional strategis dengan ketersediaan driver siaga untuk merespon permintaan pengiriman dari klien di berbagai pulau.</p>
                 </div>
-
                 <div class="relative z-10 flex flex-wrap justify-center gap-3">
                     <span class="bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-sm font-semibold hover:bg-whoosh-orange transition-colors cursor-default">Jabodetabek</span>
                     <span class="bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-sm font-semibold hover:bg-whoosh-orange transition-colors cursor-default">Jawa Barat</span>
@@ -443,39 +464,7 @@
         </div>
     </section>
 
-    <section id="peta-jaringan" class="py-20 bg-whoosh-dark relative border-y border-blue-900/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-4xl mx-auto mb-12">
-                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-whoosh-orange/10 border border-whoosh-orange/30 px-3 py-1 rounded-full text-whoosh-orange">Infrastruktur Nasional</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">Peta Rute & Jangkauan Logistik</h2>
-                <div class="w-24 h-1 bg-whoosh-orange mx-auto rounded-full mb-6"></div>
-                <p class="text-blue-100 text-sm leading-relaxed">
-                    Visualisasi jangkauan operasional Whoosh Express. Mengkover jalur darat antar provinsi (Trans-Nasional) dan terhubung melalui jalur laut antar pulau menggunakan kapal Ro-Ro dan kargo.
-                </p>
-            </div>
-
-            <div class="relative bg-white/5 border border-white/10 p-2 rounded-3xl shadow-2xl backdrop-blur-sm">
-                <div class="absolute top-6 right-6 z-[20] bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-gray-200 pointer-events-none hidden sm:block">
-                    <h4 class="font-bold text-xs text-gray-800 mb-3 border-b border-gray-200 pb-2">Keterangan Peta</h4>
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-6 h-1 bg-whoosh-orange rounded-full"></div>
-                        <span class="text-[10px] font-semibold text-gray-600 uppercase">Jalur Darat (Towing/Self-drive)</span>
-                    </div>
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-6 h-1 border-t-2 border-dashed border-sky-400"></div>
-                        <span class="text-[10px] font-semibold text-gray-600 uppercase">Jalur Laut (Kapal Ro-Ro/Kargo)</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-3 h-3 bg-whoosh-orange border-2 border-white rounded-full shadow-sm"></div>
-                        <span class="text-[10px] font-semibold text-gray-600 uppercase">Titik Basecamp Operasional</span>
-                    </div>
-                </div>
-
-                <div id="logistic-map" class="w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden bg-gray-900 z-10"></div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Interactive Cost Calculator -->
     <section id="kalkulator" class="py-24 bg-slate-950 relative">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-gradient-to-br from-slate-900 to-slate-900/80 border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
@@ -483,12 +472,12 @@
                 
                 <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
                     <span class="text-whoosh-orange font-semibold text-xs tracking-widest uppercase bg-orange-500/10 px-3 py-1 rounded-full border border-orange-500/20">Kalkulator Cerdas</span>
-                    <h2 class="text-3xl font-extrabold text-white tracking-tight">Hitung Estimasi Biaya Pengiriman Mobil</h2>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight">Hitung Estimasi Biaya Pengiriman</h2>
                     <p class="text-slate-400 text-sm">Dapatkan perkiraan tarif instan berdasarkan jenis layanan dan rute perjalanan.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="space-y-5">
+                    <div class="space-y-5 relative z-10">
                         <div>
                             <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Wilayah Asal Pengiriman</label>
                             <select id="calcOrigin" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-slate-200 focus:outline-none focus:border-whoosh-orange transition-colors">
@@ -524,7 +513,7 @@
                         </button>
                     </div>
 
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-8 text-center space-y-6 flex flex-col justify-center h-full">
+                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-8 text-center space-y-6 flex flex-col justify-center h-full relative z-10">
                         <div class="w-16 h-16 rounded-2xl bg-orange-500/10 border border-orange-500/30 text-whoosh-orange flex items-center justify-center text-2xl mx-auto shadow-inner">
                             <i class="fa-solid fa-receipt"></i>
                         </div>
@@ -544,7 +533,7 @@
                             </div>
                         </div>
                         <button type="button" id="bookNowFromCalc" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-all shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 cursor-pointer">
-                            <i class="fa-brands fa-whatsapp text-lg"></i> Booking Tarif Ini via WhatsApp
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Booking Tarif Via WhatsApp
                         </button>
                     </div>
                 </div>
@@ -552,6 +541,7 @@
         </div>
     </section>
 
+    <!-- Services & Unique Value -->
     <section id="layanan" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -568,7 +558,6 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Keamanan & Perlindungan</h3>
                     <p class="text-gray-600 text-sm leading-relaxed">Perlindungan aset melalui SOP pemeriksaan ketat (mesin, interior, eksterior) sebelum keberangkatan untuk mitigasi risiko.</p>
                 </div>
-
                 <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
                     <div class="w-14 h-14 bg-white text-whoosh-orange shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-satellite-dish"></i>
@@ -576,7 +565,6 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Live Tracking Terintegrasi</h3>
                     <p class="text-gray-600 text-sm leading-relaxed">Pantau posisi pergerakan unit via GPS Mobile App driver secara real-time melalui Dashboard Klien.</p>
                 </div>
-
                 <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
                     <div class="w-14 h-14 bg-white text-whoosh-blue shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-blue group-hover:text-white transition-colors">
                         <i class="fa-solid fa-file-signature"></i>
@@ -584,7 +572,6 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3">BASTK Digital & E-Sign</h3>
                     <p class="text-gray-600 text-sm leading-relaxed">Tinggalkan kertas manual. Berita acara, foto bukti fisik, dan tanda tangan digital tergenerate otomatis di sistem.</p>
                 </div>
-
                 <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
                     <div class="w-14 h-14 bg-white text-whoosh-orange shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-id-card-clip"></i>
@@ -592,7 +579,6 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Driver Bersertifikasi</h3>
                     <p class="text-gray-600 text-sm leading-relaxed">Tim pengemudi (self-drive maupun towing) melewati background check, pelatihan teknis, dan verifikasi dokumen identitas.</p>
                 </div>
-
                 <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
                     <div class="w-14 h-14 bg-white text-whoosh-blue shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-blue group-hover:text-white transition-colors">
                         <i class="fa-solid fa-chart-pie"></i>
@@ -600,7 +586,6 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Dashboard Multi-Peran</h3>
                     <p class="text-gray-600 text-sm leading-relaxed">Sistem otorisasi berjenjang untuk Admin Pusat, PIC Corporate Client, dan Driver Mobile untuk kemudahan komunikasi.</p>
                 </div>
-
                 <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
                     <div class="w-14 h-14 bg-white text-whoosh-orange shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-truck-ramp-box"></i>
@@ -612,19 +597,20 @@
         </div>
     </section>
 
+    <!-- Professional Ecosystem Timeline -->
     <section id="ekosistem" class="py-24 bg-gray-50 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-20">
-                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-100 px-3 py-1 rounded-full">Sistem Digital</span>
+                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-100 px-3 py-1 rounded-full">Sistem Digital Terintegrasi</span>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">Alur Ekosistem Platform</h2>
                 <div class="w-24 h-1 bg-whoosh-orange mx-auto rounded-full"></div>
             </div>
 
-            <div class="relative max-w-4xl mx-auto">
+            <div class="relative max-w-5xl mx-auto">
                 <div class="timeline-line hidden md:block"></div>
 
-                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between mb-16 w-full">
-                    <div class="md:w-5/12 mb-6 md:mb-0 w-full pl-12 md:pl-0 text-left md:text-right">
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between mb-16 w-full group">
+                    <div class="md:w-5/12 mb-6 md:mb-0 w-full pl-12 md:pl-0 text-left md:text-right transition-transform group-hover:-translate-x-2">
                         <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-md hover:shadow-lg transition-shadow relative">
                             <div class="inline-block px-3 py-1 bg-blue-100 text-whoosh-blue text-[10px] uppercase font-bold rounded mb-3">Fase 1</div>
                             <h3 class="text-xl font-bold text-gray-800 mb-2">Input Order Client</h3>
@@ -632,73 +618,73 @@
                         </div>
                     </div>
                     <div class="hidden md:flex md:w-2/12 justify-center">
-                        <div class="w-14 h-14 bg-whoosh-blue rounded-full border-4 border-gray-50 shadow text-white flex items-center justify-center text-xl z-10">
+                        <div class="w-14 h-14 bg-whoosh-blue rounded-full border-4 border-gray-50 shadow-lg text-white flex items-center justify-center text-xl z-10">
                             <i class="fa-solid fa-laptop-file"></i>
                         </div>
                     </div>
-                    <div class="hidden md:block md:w-5/12 px-6">
+                    <div class="hidden md:block md:w-5/12 px-6 transition-transform group-hover:translate-x-2">
                         <div class="bg-white p-2 rounded-2xl shadow border border-gray-100">
-                            <img src="Fase1.png" alt="Fase 1" class="w-full h-auto rounded-xl object-cover">
+                            <img src="Fase1.png" alt="Fase 1" class="w-full h-auto rounded-xl object-cover" onerror="this.src='https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                         </div>
                     </div>
                 </div>
 
-                <div class="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between mb-16 w-full">
-                    <div class="md:w-5/12 mb-6 md:mb-0 w-full pl-12 md:pl-0 text-left">
+                <div class="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between mb-16 w-full group">
+                    <div class="md:w-5/12 mb-6 md:mb-0 w-full pl-12 md:pl-0 text-left transition-transform group-hover:translate-x-2">
                         <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-md hover:shadow-lg transition-shadow relative">
                             <div class="inline-block px-3 py-1 bg-orange-100 text-whoosh-orange text-[10px] uppercase font-bold rounded mb-3">Fase 2</div>
                             <h3 class="text-xl font-bold text-gray-800 mb-2">Dispatch & Penugasan Driver</h3>
-                            <p class="text-gray-500 text-sm">Sistem Admin meneruskan order ke Mobile App Driver terdekat beserta detail lokasi.</p>
+                            <p class="text-gray-500 text-sm">Sistem Admin meneruskan order ke Mobile App Driver terdekat beserta rute dan detail lokasi pengiriman.</p>
                         </div>
                     </div>
                     <div class="hidden md:flex md:w-2/12 justify-center">
-                        <div class="w-14 h-14 bg-whoosh-orange rounded-full border-4 border-gray-50 shadow text-white flex items-center justify-center text-xl z-10">
+                        <div class="w-14 h-14 bg-whoosh-orange rounded-full border-4 border-gray-50 shadow-lg text-white flex items-center justify-center text-xl z-10">
                             <i class="fa-solid fa-route"></i>
                         </div>
                     </div>
-                    <div class="hidden md:block md:w-5/12 px-6">
+                    <div class="hidden md:block md:w-5/12 px-6 transition-transform group-hover:-translate-x-2">
                         <div class="bg-white p-2 rounded-2xl shadow border border-gray-100">
-                            <img src="driver2.png" alt="Fase 2" class="w-full h-auto rounded-xl object-cover">
+                            <img src="driver2.png" alt="Fase 2" class="w-full h-auto rounded-xl object-cover" onerror="this.src='https://images.unsplash.com/photo-1519003722824-194d4455a60c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                         </div>
                     </div>
                 </div>
 
-                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between mb-16 w-full">
-                    <div class="md:w-5/12 mb-6 md:mb-0 w-full pl-12 md:pl-0 text-left md:text-right">
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between mb-16 w-full group">
+                    <div class="md:w-5/12 mb-6 md:mb-0 w-full pl-12 md:pl-0 text-left md:text-right transition-transform group-hover:-translate-x-2">
                         <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-md hover:shadow-lg transition-shadow relative">
                             <div class="inline-block px-3 py-1 bg-blue-100 text-whoosh-blue text-[10px] uppercase font-bold rounded mb-3">Fase 3</div>
                             <h3 class="text-xl font-bold text-gray-800 mb-2">Live Transit & Tracking</h3>
-                            <p class="text-gray-500 text-sm">Unit dalam perjalanan dengan pemantauan GPS dan laporan status rutin di platform.</p>
+                            <p class="text-gray-500 text-sm">Unit dalam perjalanan dapat dipantau posisinya melalui GPS dengan pembaruan status rutin dari Driver.</p>
                         </div>
                     </div>
                     <div class="hidden md:flex md:w-2/12 justify-center">
-                        <div class="w-14 h-14 bg-whoosh-blue rounded-full border-4 border-gray-50 shadow text-white flex items-center justify-center text-xl z-10">
+                        <div class="w-14 h-14 bg-whoosh-blue rounded-full border-4 border-gray-50 shadow-lg text-white flex items-center justify-center text-xl z-10">
                             <i class="fa-solid fa-satellite-dish"></i>
                         </div>
                     </div>
-                    <div class="hidden md:block md:w-5/12 px-6">
+                    <div class="hidden md:block md:w-5/12 px-6 transition-transform group-hover:translate-x-2">
                         <div class="bg-white p-2 rounded-2xl shadow border border-gray-100">
-                            <img src="driver1.png" alt="Fase 3" class="w-full h-auto rounded-xl object-cover">
+                            <img src="driver1.png" alt="Fase 3" class="w-full h-auto rounded-xl object-cover" onerror="this.src='https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                         </div>
                     </div>
                 </div>
 
-                <div class="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between w-full">
-                    <div class="md:w-5/12 mb-6 md:mb-0 w-full pl-12 md:pl-0 text-left">
+                <div class="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between w-full group">
+                    <div class="md:w-5/12 mb-6 md:mb-0 w-full pl-12 md:pl-0 text-left transition-transform group-hover:translate-x-2">
                         <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-md hover:shadow-lg transition-shadow relative">
                             <div class="inline-block px-3 py-1 bg-orange-100 text-whoosh-orange text-[10px] uppercase font-bold rounded mb-3">Fase 4</div>
                             <h3 class="text-xl font-bold text-gray-800 mb-2">Delivery & Digital BASTK</h3>
-                            <p class="text-gray-500 text-sm">Kendaraan tiba di tujuan, serah terima dengan verifikasi foto dan tanda tangan digital sah.</p>
+                            <p class="text-gray-500 text-sm">Kendaraan tiba di tujuan, serah terima dijamin dengan verifikasi foto fisik dan tanda tangan BASTK digital yang sah.</p>
                         </div>
                     </div>
                     <div class="hidden md:flex md:w-2/12 justify-center">
-                        <div class="w-14 h-14 bg-whoosh-orange rounded-full border-4 border-gray-50 shadow text-white flex items-center justify-center text-xl z-10">
+                        <div class="w-14 h-14 bg-whoosh-orange rounded-full border-4 border-gray-50 shadow-lg text-white flex items-center justify-center text-xl z-10">
                             <i class="fa-solid fa-file-circle-check"></i>
                         </div>
                     </div>
-                    <div class="hidden md:block md:w-5/12 px-6">
+                    <div class="hidden md:block md:w-5/12 px-6 transition-transform group-hover:-translate-x-2">
                         <div class="bg-white p-2 rounded-2xl shadow border border-gray-100">
-                            <img src="Fase2.png" alt="Fase 4" class="w-full h-auto rounded-xl object-cover">
+                            <img src="Fase2.png" alt="Fase 4" class="w-full h-auto rounded-xl object-cover" onerror="this.src='https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                         </div>
                     </div>
                 </div>
@@ -706,6 +692,7 @@
         </div>
     </section>
 
+    <!-- Field Gallery -->
     <section id="dokumentasi-tim" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12">
@@ -724,24 +711,22 @@
                         <p class="text-xs text-gray-500">Koordinasi harian tim operasional dan pengecekan kelengkapan atribut keselamatan sebelum keberangkatan.</p>
                     </div>
                 </div>
-
                 <div class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-200 group">
                     <div class="relative overflow-hidden aspect-video bg-gray-200">
                         <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Loading Towing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
                         <h3 class="font-bold text-gray-800 text-base mb-1">Pemuatan Unit Towing Hidrolik</h3>
-                        <p class="text-xs text-gray-500">Proses pengangkutan mobil mewah menggunakan towing hidrolik penuh tanpa gesekan jalanan.</p>
+                        <p class="text-xs text-gray-500">Proses pengangkutan mobil mewah menggunakan towing hidrolik penuh tanpa resiko gesekan aspal jalanan.</p>
                     </div>
                 </div>
-
                 <div class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-200 group">
                     <div class="relative overflow-hidden aspect-video bg-gray-200">
                         <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Digital Handover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
                         <h3 class="font-bold text-gray-800 text-base mb-1">Serah Terima Digital BASTK</h3>
-                        <p class="text-xs text-gray-500">Verifikasi akhir dan penandatanganan berita acara secara digital langsung di lokasi tujuan klien.</p>
+                        <p class="text-xs text-gray-500">Verifikasi akhir dan penandatanganan berita acara secara digital langsung di lokasi tujuan bersama klien.</p>
                     </div>
                 </div>
             </div>
@@ -805,13 +790,13 @@
                     </ul>
                 </div>
             </div>
-
             <div class="pt-8 border-t border-slate-900 text-center text-xs text-slate-500">
                 <p>&copy; 2026 PT. Whoosh Indonesia Ekspres. All rights reserved. Platform Pengiriman Kendaraan Nasional.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Modals & Toasts -->
     <div id="clientModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-100 relative animate-in fade-in zoom-in duration-200">
             <button onclick="closeClientModal()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 text-xl focus:outline-none">
@@ -851,6 +836,7 @@
         </div>
     </div>
 
+    <!-- Application Logic -->
     <script>
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -885,12 +871,7 @@
             showToast('Autentikasi Berhasil', 'Mengalihkan ke Client Dashboard...');
         }
 
-       // Proposal Download Simulation
-        function downloadProposalDummy() {
-        showToast('Proposal Diunduh', 'Membuka file proposal PT Whoosh Indonesia Ekspres...');
-        window.open('kerjasama-whooshexpress.pdf', '_blank');
-       }
-        // Cost Calculator Matrix
+        // Cost Calculator Logic
         const tariffMatrix = {
             'jakarta-surabaya': { base: 2500000, time: '2 - 3 Hari' },
             'jakarta-bali': { base: 4200000, time: '3 - 4 Hari' },
@@ -932,7 +913,6 @@
             calcBtn.addEventListener('click', calculateCost);
         }
 
-        // Booking from Calculator via WhatsApp
         const bookNowFromCalc = document.getElementById('bookNowFromCalc');
         if (bookNowFromCalc) {
             bookNowFromCalc.addEventListener('click', function() {
@@ -950,7 +930,7 @@
             });
         }
 
-        // Leaflet Map Initialization
+        // Interactive Leaflet Map Logic
         window.addEventListener('load', function() {
             const mapContainer = document.getElementById('logistic-map');
             if (mapContainer && typeof L !== 'undefined') {
@@ -990,30 +970,16 @@
                         .bindPopup(`<div style="color: #072442; font-family: Inter, sans-serif;"><strong>${bc.name}</strong><br><span style="font-size:11px;">${bc.desc}</span></div>`);
                 });
 
-                const javaRoute = [
-                    [-6.2088, 106.8456],
-                    [-6.9175, 107.6191],
-                    [-7.0051, 110.4381],
-                    [-7.2575, 112.7521]
-                ];
+                const javaRoute = [ [-6.2088, 106.8456], [-6.9175, 107.6191], [-7.0051, 110.4381], [-7.2575, 112.7521] ];
                 L.polyline(javaRoute, { color: '#F26522', weight: 3, opacity: 0.8 }).addTo(map);
 
-                const seaRoute1 = [
-                    [-7.2575, 112.7521],
-                    [-8.4095, 115.1889]
-                ];
+                const seaRoute1 = [ [-7.2575, 112.7521], [-8.4095, 115.1889] ];
                 L.polyline(seaRoute1, { color: '#38bdf8', weight: 2, dashArray: '6, 8', opacity: 0.7 }).addTo(map);
 
-                const seaRoute2 = [
-                    [-6.2088, 106.8456],
-                    [-1.2379, 116.8529]
-                ];
+                const seaRoute2 = [ [-6.2088, 106.8456], [-1.2379, 116.8529] ];
                 L.polyline(seaRoute2, { color: '#38bdf8', weight: 2, dashArray: '6, 8', opacity: 0.7 }).addTo(map);
 
-                const seaRoute3 = [
-                    [-7.2575, 112.7521],
-                    [-5.1477, 119.4327]
-                ];
+                const seaRoute3 = [ [-7.2575, 112.7521], [-5.1477, 119.4327] ];
                 L.polyline(seaRoute3, { color: '#38bdf8', weight: 2, dashArray: '6, 8', opacity: 0.7 }).addTo(map);
             }
         });
