@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>PT. Whoosh Indonesia Ekspres | Platform Digital Pengiriman Kendaraan Nasional</title>
 
     <meta name="description" content="Whoosh Express adalah platform digital pengiriman kendaraan nasional yang menyediakan layanan Self Drive, Towing, Car Carrier, Fleet Management, Live Tracking, Digital BAST dan Dashboard Monitoring untuk perusahaan, dealer, rental, balai lelang dan logistik kendaraan di seluruh Indonesia.">
-
     <meta name="keywords" content="Whoosh Express, PT Whoosh Indonesia Ekspres, Pengiriman Kendaraan, Self Drive, Towing, Car Carrier, Fleet Management, Digital BAST, Live Tracking, Dashboard Monitoring, Ekspedisi Mobil Nasional">
-
     <meta name="author" content="PT. Whoosh Indonesia Ekspres">
-
     <meta name="robots" content="index,follow,max-image-preview:large">
-
     <meta name="theme-color" content="#0666AC">
-
     <meta name="format-detection" content="telephone=no">
 
     <link rel="canonical" href="https://whooshexpress.com/">
@@ -26,33 +20,18 @@
     <meta property="og:site_name" content="Whoosh Express">
     <meta property="og:locale" content="id_ID">
     <meta property="og:url" content="https://whooshexpress.com/">
-
-    <meta property="og:title"
-        content="Whoosh Express | Platform Digital Pengiriman Kendaraan Nasional">
-
-    <meta property="og:description"
-        content="Platform digital pengiriman kendaraan nasional dengan layanan Self Drive, Towing, Car Carrier, Fleet Management, Live Tracking, Dashboard Monitoring dan Digital BAST.">
-
-    <meta property="og:image"
-        content="https://whooshexpress.com/logo-whoosh.png">
-
+    <meta property="og:title" content="Whoosh Express | Platform Digital Pengiriman Kendaraan Nasional">
+    <meta property="og:description" content="Platform digital pengiriman kendaraan nasional dengan layanan Self Drive, Towing, Car Carrier, Fleet Management, Live Tracking, Dashboard Monitoring dan Digital BAST.">
+    <meta property="og:image" content="https://whooshexpress.com/logo-whoosh.png">
     <meta property="og:image:width" content="1200">
-
     <meta property="og:image:height" content="630">
-
     <meta property="og:image:type" content="image/png">
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
-
-    <meta name="twitter:title"
-        content="Whoosh Express | Platform Digital Pengiriman Kendaraan Nasional">
-
-    <meta name="twitter:description"
-        content="Platform digital pengiriman kendaraan nasional dengan layanan Self Drive, Towing, Car Carrier, Fleet Management, Live Tracking, Dashboard Monitoring dan Digital BAST.">
-
-    <meta name="twitter:image"
-        content="https://whooshexpress.com/logo-whoosh.png">
+    <meta name="twitter:title" content="Whoosh Express | Platform Digital Pengiriman Kendaraan Nasional">
+    <meta name="twitter:description" content="Platform digital pengiriman kendaraan nasional dengan layanan Self Drive, Towing, Car Carrier, Fleet Management, Live Tracking, Dashboard Monitoring dan Digital BAST.">
+    <meta name="twitter:image" content="https://whooshexpress.com/logo-whoosh.png">
 
     <!-- Favicons -->
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -81,6 +60,788 @@
     <!-- Leaflet JS & CSS for Interactive Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        whoosh: {
+                            blue: '#17385A',
+                            lightBlue: '#2A4E74',
+                            orange: '#F26522',
+                            darkOrange: '#D15215',
+                            dark: '#0f263d',
+                            primary: '#0666AC',
+                            cyan: '#00E5FF'
+                        }
+                    },
+                    keyframes: {
+                        floating: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        kenburns: {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.15)' },
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'floating': 'floating 6s ease-in-out infinite',
+                        'kenburns': 'kenburns 20s ease-out infinite alternate',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0B3A68; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F26522; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        #logistic-map {
+            z-index: 10 !important;
+        }
+        .leaflet-container {
+            background-color: #072442;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Animated Map Routes */
+        path.route-land {
+            stroke-dasharray: 10, 15;
+            animation: move-route 1.5s linear infinite;
+        }
+        path.route-sea {
+            stroke-dasharray: 8, 12;
+            animation: move-route 2s linear infinite;
+        }
+        @keyframes move-route {
+            from { stroke-dashoffset: 50; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Image Hover Overlay for Gallery - Keren & Profesional */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+        }
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
+            z-index: 20;
+            transition: all 0.4s ease;
+        }
+        .gallery-item img {
+            transition: transform 0.7s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(6, 102, 172, 0.95) 0%, rgba(23, 56, 90, 0.6) 40%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            z-index: 10;
+        }
+        .gallery-item:hover {
+            border-color: #F26522;
+            box-shadow: 0 10px 25px -5px rgba(242, 101, 34, 0.4);
+            transform: translateY(-5px);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.15);
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        /* Ecosystem Timeline Line */
+        .eco-line {
+            position: absolute;
+            left: 28px;
+            top: 20px;
+            bottom: 20px;
+            width: 2px;
+            background: rgba(255,255,255,0.1);
+            z-index: 0;
+        }
+        .eco-line-active {
+            position: absolute;
+            left: -1px;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #F26522, #00E5FF);
+            z-index: 1;
+            animation: grow-line 3s ease-out forwards;
+            transform-origin: top;
+        }
+        @keyframes grow-line {
+            0% { transform: scaleY(0); }
+            100% { transform: scaleY(1); }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6282295959933?text=Halo%20Whoosh%20Express,%20saya%20ingin%20mengajukan%20kerjasama%20pengiriman%20kendaraan." 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-2xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center border-2 border-white shrink-0 cursor-pointer"
+       title="Chat via WhatsApp">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Top Bar -->
+    <div class="bg-whoosh-dark text-white text-xs py-2 px-4 border-b border-blue-900/50 hidden md:block">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <span><i class="fa-solid fa-building mr-1.5 text-whoosh-orange"></i> Jl. Radio Dalam V No.71 Kebayoran Baru Jakarta Selatan</span>
+                <span><i class="fa-solid fa-clock mr-1.5 text-whoosh-orange"></i> Layanan Operasional Realtime 24/7</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/6282295959933" target="_blank" class="hover:text-whoosh-orange font-semibold flex items-center gap-1.5 transition-colors">
+                    <i class="fa-brands fa-whatsapp text-green-400 text-sm"></i> Pengajuan Kerjasama: <span class="text-whoosh-orange">0822-9595-9933</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="sticky top-0 w-full z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#beranda" class="flex items-center shrink-0">
+                    <img src="logo-whoosh.png" alt="Whoosh Express Logo" class="h-16 sm:h-19 w-auto object-contain">
+                </a>
+
+                <div class="hidden xl:flex items-center space-x-6">
+                    <a href="#beranda" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm lg:text-base transition-colors">Beranda</a>
+                    <a href="#tentang-kami" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm lg:text-base transition-colors">Tentang Kami</a>
+                    <a href="#lokasi-layanan" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm lg:text-base transition-colors">Rute Armada</a>
+                    <a href="#layanan" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm lg:text-base transition-colors">Layanan</a>
+                    <a href="#ekosistem" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm lg:text-base transition-colors">Ekosistem</a>
+                    <a href="#kalkulator" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm lg:text-base transition-colors">Estimasi Tarif</a>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="openClientModal()" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-whoosh-blue to-whoosh-lightBlue hover:from-whoosh-lightBlue hover:to-whoosh-blue text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg border border-blue-400/30 group">
+                        <i class="fa-solid fa-shield-halved text-blue-200 group-hover:text-white transition-colors"></i>
+                        <span>Client Dashboard</span>
+                    </button>
+
+                    <button id="mobile-menu-btn" class="xl:hidden text-gray-700 hover:text-whoosh-blue focus:outline-none p-2 rounded-lg bg-gray-100">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full left-0 max-h-[85vh] overflow-y-auto">
+            <div class="px-4 pt-3 pb-6 space-y-2">
+                <a href="#beranda" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Beranda</a>
+                <a href="#tentang-kami" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Tentang Kami</a>
+                <a href="#lokasi-layanan" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Rute Armada & Lokasi</a>
+                <a href="#layanan" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Keunggulan Layanan</a>
+                <a href="#ekosistem" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Sistem Ekosistem</a>
+                <a href="#kalkulator" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Kalkulator Tarif</a>
+                <a href="#dokumentasi-tim" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Galeri Dokumentasi</a>
+                <a href="#karir-mitra" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Karir & Kemitraan</a>
+                
+                <div class="pt-3 flex flex-col gap-2">
+                    <button onclick="openClientModal()" class="w-full bg-whoosh-blue text-white px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow">
+                        <i class="fa-solid fa-shield-halved"></i> Login Client Dashboard
+                    </button>
+                    <a href="kerjasama-whooshexpress.pdf" download="kerjasama-whooshexpress.pdf" target="_blank" class="w-full bg-gray-800/80 hover:bg-gray-800 border border-gray-700 px-4 py-3 rounded-xl flex items-center justify-center gap-2 text-sm transition-all shadow text-white">
+                        <i class="fa-solid fa-file-pdf text-red-500"></i> Download Proposal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section (Beranda) -->
+    <section id="beranda" class="relative min-h-[600px] lg:min-h-[680px] pt-12 pb-20 lg:pt-20 lg:pb-28 flex items-center overflow-hidden bg-[#033f6c]">
+        <div class="absolute inset-0 z-0">
+            <img src="beranda.png" alt="Car Carrier Truck Background" class="w-full h-full object-cover object-center opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#022947] via-[#033f6c]/90 to-[#033f6c]/40"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                <!-- Kiri: Teks dan Tombol Pilihan -->
+                <div class="lg:col-span-7 text-left order-2 lg:order-1">
+                    <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-whoosh-orange/40 mb-6 bg-whoosh-orange/10 backdrop-blur-sm">
+                        <span class="text-whoosh-orange font-bold text-xs tracking-widest uppercase">SATU PLATFORM DIGITAL UNTUK NASIONAL</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-[55px] font-black text-white leading-[1.1] mb-6 tracking-tight">
+                        Platform Pengiriman<br>Kendaraan<br>
+                        <span class="text-whoosh-orange">Terintegrasi Nasional</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-gray-100 mb-8 leading-relaxed max-w-2xl font-normal">
+                        Solusi profesional mobilisasi kendaraan roda empat & truk komersial. Terkoneksi dengan sistem digital real-time, live tracking 24/7, dan dieksekusi oleh tim pengemudi berstandar tinggi.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 items-center mb-6">
+                        <a href="https://wa.me/6282295959933" target="_blank" class="flex items-center gap-3 bg-[#25D366] hover:bg-green-600 text-white px-5 py-3 rounded-lg font-bold transition-all shadow-lg shadow-green-500/20">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            <div class="text-left leading-tight">
+                                <span class="block text-[10px] uppercase font-semibold text-green-100">Tanya Layanan & Harga</span>
+                                <span class="block text-base tracking-wide">0822 9595 9933</span>
+                            </div>
+                        </a>
+                        <a href="kerjasama-whooshexpress.pdf" download="Proposal_Kerjasama_Whoosh_Express.pdf" class="flex items-center gap-3 bg-[#044273]/60 border border-[#4895d3] hover:bg-[#044273] text-white px-5 py-3 rounded-lg font-bold transition-all backdrop-blur-sm">
+                            <i class="fa-solid fa-file-pdf text-2xl text-red-400"></i>
+                            <div class="text-left leading-tight">
+                                <span class="block text-[10px] uppercase font-semibold text-gray-200">Pelajari Layanan Kami</span>
+                                <span class="block text-base">Download Proposal</span>
+                            </div>
+                        </a>
+                        <a href="#layanan" class="flex items-center justify-center bg-transparent hover:bg-white/10 text-white border border-white px-7 py-3.5 rounded-full font-bold transition-all text-sm sm:text-base backdrop-blur-sm self-stretch">
+                            Jelajahi Layanan
+                        </a>
+                    </div>
+                    
+                    <div class="text-sm text-gray-200 flex items-center gap-2 ml-1">
+                        <i class="fa-regular fa-envelope text-whoosh-orange"></i>
+                        <span>Email: <a href="mailto:marketing@whooshexpress.com" class="text-white hover:text-whoosh-orange transition-colors underline decoration-[#4895d3]">marketing@whooshexpress.com</a></span>
+                    </div>
+                </div>
+
+                <!-- Kanan: Gambar Animasi -->
+                <div class="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2 w-full relative z-22">
+                    <div class="relative w-full max-w-[500px] aspect-[4/3] rounded-3xl p-3 sm:p-5 bg-[#4895d3]/30 border border-white/20 shadow-2xl backdrop-blur-md animate-floating">
+                        <div class="relative w-full h-full rounded-xl overflow-hidden bg-[#044273] border border-[#4895d3]/50 shadow-inner">
+                            <img src="driver1.png" alt="Live Tracking Unit Whoosh Express" class="w-full h-full object-cover animate-kenburns">
+                        </div>
+                        <div class="absolute -bottom-6 -left-2 sm:-left-8 sm:-bottom-8 bg-white rounded-2xl shadow-2xl p-4 sm:p-5 flex items-center gap-4 z-30 border border-gray-100 hover:scale-105 transition-transform duration-300">
+                            <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center relative shrink-0">
+                                <i class="fa-solid fa-location-dot text-green-500 text-2xl z-10"></i>
+                                <div class="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-30"></div>
+                            </div>
+                            <div class="pr-4">
+                                <p class="text-[11px] sm:text-xs text-gray-500 font-semibold mb-0.5">Status Pengiriman</p>
+                                <p class="text-sm sm:text-base font-extrabold text-[#0666ac] flex items-center gap-2">Live Tracking Aktif</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Statistics Strip -->
+    <section class="py-12 bg-gradient-to-r from-whoosh-blue to-whoosh-lightBlue relative">
+        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSI+PC9yZWN0Pgo8cGF0aCBkPSJNMCAwbDhfOHptOCAwTDBfOHoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9IjAuNCIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+Cjwvc3ZnPg==')]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/20">
+                <div class="px-4">
+                    <div class="text-whoosh-orange text-4xl mb-3"><i class="fa-solid fa-users"></i></div>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-2">46+</h3>
+                    <p class="text-blue-100 text-sm font-medium">Driver Internal & Mitra</p>
+                </div>
+                <div class="px-4">
+                    <div class="text-whoosh-orange text-4xl mb-3"><i class="fa-solid fa-car-side"></i></div>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-2">750+</h3>
+                    <p class="text-blue-100 text-sm font-medium">Unit Terkirim / Bulan</p>
+                </div>
+                <div class="px-4">
+                    <div class="text-whoosh-orange text-4xl mb-3"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-2">20+</h3>
+                    <p class="text-blue-100 text-sm font-medium">Kota Besar Terhubung</p>
+                </div>
+                <div class="px-4">
+                    <div class="text-whoosh-orange text-4xl mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-2">100%</h3>
+                    <p class="text-blue-100 text-sm font-medium">SLA Terukur & Terpantau</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Kami & Visi Misi -->
+    <section id="tentang-kami" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-50 px-3 py-1 rounded-full border border-orange-100">Profil Perusahaan</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">Ringkasan Eksekutif & Visi Misi</h2>
+                <div class="w-20 h-1 bg-whoosh-orange mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Bagian Tentang Kami -->
+            <div class="flex flex-col lg:flex-row gap-12 items-center mb-16">
+                <div class="w-full lg:w-1/2 space-y-6">
+                    <p class="text-lg text-gray-700 leading-relaxed font-medium">
+                        <strong class="text-whoosh-blue">PT. Whoosh Indonesia Ekspres</strong> merupakan perusahaan spesialis mobilisasi kendaraan yang berevolusi menjadi <strong class="text-whoosh-orange">Platform Digital Logistik Nasional</strong>.
+                    </p>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Kami hadir untuk mendukung kebutuhan operasional korporasi, balai lelang, rental mobil, dealer, dan pemilik armada dalam mengelola proses pengiriman kendaraan antar kota dan pulau secara efisien, terukur, dan transparan.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                        <div class="bg-blue-50 border-l-4 border-whoosh-blue p-5 rounded-r-xl transition-all hover:shadow-md">
+                            <h4 class="font-bold text-whoosh-blue text-sm mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-laptop-code text-whoosh-orange"></i> One Stop Solution
+                            </h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">Integrasi teknologi web dashboard, jaringan basecamp nasional, & pelacakan real-time melalui aplikasi mobile.</p>
+                        </div>
+                        <div class="bg-orange-50 border-l-4 border-whoosh-orange p-5 rounded-r-xl transition-all hover:shadow-md">
+                            <h4 class="font-bold text-whoosh-blue text-sm mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-handshake text-whoosh-orange"></i> Kemitraan Strategis
+                            </h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">Penerapan standar operasional (SOP) ketat khusus untuk melayani balai lelang, fleet rental, & APM dealer.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bagian Nilai Inti -->
+                <div class="w-full lg:w-1/2">
+                    <div class="bg-gray-50 rounded-3xl shadow-inner border border-gray-100 p-8">
+                        <h3 class="text-xl font-bold text-center text-whoosh-blue mb-6 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-whoosh-orange"></i> Nilai Inti (WHOOSH)
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-white p-3 rounded-xl border border-gray-100 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-whoosh-blue text-white rounded-lg flex justify-center items-center font-black">W</div>
+                                <div><h4 class="font-bold text-sm text-gray-800">Work With Integrity</h4></div>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-gray-100 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-whoosh-orange text-white rounded-lg flex justify-center items-center font-black">H</div>
+                                <div><h4 class="font-bold text-sm text-gray-800">High Performance</h4></div>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-gray-100 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-whoosh-blue text-white rounded-lg flex justify-center items-center font-black">O</div>
+                                <div><h4 class="font-bold text-sm text-gray-800">Operational Excellence</h4></div>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-gray-100 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-whoosh-orange text-white rounded-lg flex justify-center items-center font-black">O</div>
+                                <div><h4 class="font-bold text-sm text-gray-800">Ownership</h4></div>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-gray-100 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-whoosh-blue text-white rounded-lg flex justify-center items-center font-black">S</div>
+                                <div><h4 class="font-bold text-sm text-gray-800">Safety First</h4></div>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-gray-100 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-whoosh-orange text-white rounded-lg flex justify-center items-center font-black">H</div>
+                                <div><h4 class="font-bold text-sm text-gray-800">Human Centric</h4></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visi & Misi Blok Baru -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Visi -->
+                <div class="bg-gradient-to-br from-whoosh-blue to-whoosh-lightBlue rounded-3xl p-8 sm:p-10 text-white shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center text-3xl text-whoosh-orange mb-6 border border-white/20">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Visi Perusahaan</h3>
+                        <p class="text-lg text-blue-50 leading-relaxed font-medium italic">
+                            "Menjadi platform digital pengiriman kendaraan dan manajemen logistik otomotif nomor satu di Indonesia yang paling terpercaya, terintegrasi, dan inovatif."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Misi -->
+                <div class="bg-white rounded-3xl p-8 sm:p-10 border border-gray-200 shadow-xl relative group">
+                    <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center text-3xl text-whoosh-orange mb-6 border border-orange-100">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-whoosh-blue">Misi Kami</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check-circle text-whoosh-orange mt-1"></i>
+                            <span class="text-sm text-gray-600 leading-relaxed">Memberikan layanan logistik kendaraan yang <strong>Aman, Cepat, dan Transparan</strong> melalui adopsi teknologi mutakhir.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check-circle text-whoosh-orange mt-1"></i>
+                            <span class="text-sm text-gray-600 leading-relaxed">Membangun ekosistem operasional berstandar tinggi yang melindungi aset klien dari titik penjemputan hingga tujuan.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check-circle text-whoosh-orange mt-1"></i>
+                            <span class="text-sm text-gray-600 leading-relaxed">Menciptakan lapangan kerja berkualitas bagi pengemudi dengan pelatihan profesional dan kesejahteraan yang terjamin.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lokasi Layanan & Peta Interaktif Lengkap -->
+    <section id="lokasi-layanan" class="py-20 bg-gray-100 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-100 px-3 py-1 rounded-full">Lokasi & Rute Pelayaran/Darat</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">Infrastruktur & Jaringan Nasional</h2>
+                <div class="w-24 h-1 bg-whoosh-orange mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-600 text-sm">Pemantauan visual interaktif menampilkan koneksi jalur darat (oranye) dan jalur laut (biru/cyan) terintegrasi ke seluruh nusantara, dari titik basecamp hingga tujuan strategis nasional.</p>
+            </div>
+
+            <!-- Map Integration Lengkap dengan Rute Animasi -->
+            <div class="relative bg-white/5 border border-white/10 p-2 rounded-3xl shadow-2xl backdrop-blur-sm mb-12">
+                <!-- Keterangan Legend Peta -->
+                <div class="absolute top-6 right-6 z-20 bg-slate-900/90 backdrop-blur-sm border border-slate-700 p-4 rounded-xl shadow-lg">
+                    <h4 class="text-white text-xs font-bold mb-3 uppercase tracking-wider">Keterangan Rute</h4>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-1 bg-whoosh-orange border-t-2 border-dashed border-white"></div>
+                        <span class="text-slate-300 text-xs">Jalur Darat (Active)</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-1 bg-[#00E5FF] border-t-2 border-dashed border-white"></div>
+                        <span class="text-slate-300 text-xs">Jalur Laut (Active)</span>
+                    </div>
+                </div>
+                <div id="logistic-map" class="w-full max-w-5xl mx-auto h-[450px] md:h-[550px] rounded-2xl overflow-hidden bg-gray-900 z-10 border border-slate-700"></div>
+            </div>
+            
+            <!-- Detail Lokasi Text -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Kantor Pusat -->
+                <div class="lg:col-span-1">
+                    <div class="bg-whoosh-blue text-white rounded-3xl p-8 shadow-xl h-full border border-blue-800">
+                        <div class="w-14 h-14 bg-whoosh-orange rounded-full flex items-center justify-center text-2xl mb-6 shadow-lg shadow-orange-500/50">
+                            <i class="fa-solid fa-building-flag"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Kantor Pusat</h3>
+                        <p class="text-blue-200 text-sm mb-6">Pusat Komando & Operasional Utama</p>
+                        
+                        <div class="space-y-4 text-sm">
+                            <div class="flex gap-3 items-start">
+                                <i class="fa-solid fa-location-dot text-whoosh-orange mt-1 text-lg"></i>
+                                <span class="leading-relaxed text-gray-100">Jl. Radio Dalam V No.71<br>Kebayoran Baru, Jakarta Selatan<br>DKI Jakarta 12140</span>
+                            </div>
+                            <div class="flex gap-3 items-center pt-2">
+                                <i class="fa-solid fa-phone text-whoosh-orange text-lg"></i>
+                                <span class="text-gray-100">+62 822-9595-9933</span>
+                            </div>
+                            <div class="flex gap-3 items-center pt-2">
+                                <i class="fa-solid fa-envelope text-whoosh-orange text-lg"></i>
+                                <span class="text-gray-100">info@whooshexpress.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daftar Basecamp -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-3xl p-8 shadow-xl h-full border border-gray-100">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fa-solid fa-map-location-dot text-whoosh-orange text-2xl"></i>
+                            <h3 class="text-2xl font-bold text-whoosh-blue">Daftar Basecamp & Titik Rute</h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                            <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                                <div class="w-3 h-3 rounded-full bg-whoosh-orange"></div>
+                                <div><p class="font-bold text-sm text-gray-800">Basecamp Jawa Barat</p><p class="text-xs text-gray-500">Bandung & Sekitarnya</p></div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                                <div class="w-3 h-3 rounded-full bg-whoosh-orange"></div>
+                                <div><p class="font-bold text-sm text-gray-800">Basecamp Jawa Tengah</p><p class="text-xs text-gray-500">Semarang, Yogyakarta</p></div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                                <div class="w-3 h-3 rounded-full bg-whoosh-orange"></div>
+                                <div><p class="font-bold text-sm text-gray-800">Basecamp Jawa Timur</p><p class="text-xs text-gray-500">Surabaya & Sekitarnya</p></div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                                <div class="w-3 h-3 rounded-full bg-whoosh-orange"></div>
+                                <div><p class="font-bold text-sm text-gray-800">Basecamp Bali</p><p class="text-xs text-gray-500">Denpasar & Nusa Tenggara</p></div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                                <div class="w-3 h-3 rounded-full bg-whoosh-cyan shadow-[0_0_10px_#00E5FF]"></div>
+                                <div><p class="font-bold text-sm text-gray-800">Rute Lintas Kalimantan</p><p class="text-xs text-gray-500">Balikpapan, Pontianak</p></div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                                <div class="w-3 h-3 rounded-full bg-whoosh-cyan shadow-[0_0_10px_#00E5FF]"></div>
+                                <div><p class="font-bold text-sm text-gray-800">Rute Lintas Sulawesi</p><p class="text-xs text-gray-500">Makassar, Palu, Gorontalo, Manado, Bitung</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan Layanan -->
+    <section id="layanan" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-50 px-3 py-1 rounded-full">Keunggulan Layanan</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">Kenapa Memilih Kami?</h2>
+                <div class="w-24 h-1 bg-whoosh-orange mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                    <div class="w-14 h-14 bg-white text-whoosh-blue shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-blue group-hover:text-white transition-colors"><i class="fa-solid fa-shield-check"></i></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Keamanan & Asuransi</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">SOP pemeriksaan ketat (mesin, interior, eksterior) sebelum keberangkatan.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                    <div class="w-14 h-14 bg-white text-whoosh-orange shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-orange group-hover:text-white transition-colors"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Live Tracking Terintegrasi</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Pantau posisi pergerakan unit via GPS Mobile App driver secara real-time.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                    <div class="w-14 h-14 bg-white text-whoosh-blue shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-blue group-hover:text-white transition-colors"><i class="fa-solid fa-file-signature"></i></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">BASTK Digital & E-Sign</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Berita acara, foto bukti fisik, dan tanda tangan digital tergenerate otomatis di sistem.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                    <div class="w-14 h-14 bg-white text-whoosh-orange shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-orange group-hover:text-white transition-colors"><i class="fa-solid fa-id-card-clip"></i></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Driver Terverifikasi</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Tim pengemudi melewati background check ketat dan pelatihan teknis driving.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                    <div class="w-14 h-14 bg-white text-whoosh-blue shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-blue group-hover:text-white transition-colors"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Solusi Multi-Moda</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Layanan fleksibel: self-drive, towing/derek, car carrier, hingga kapal Ro-Ro.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                    <div class="w-14 h-14 bg-white text-whoosh-orange shadow-sm border border-gray-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-whoosh-orange group-hover:text-white transition-colors"><i class="fa-solid fa-chart-pie"></i></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Dashboard Klien</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Akses khusus bagi Corporate Client untuk memonitor riwayat dan status pesanan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALUR EKOSISTEM (NEW) -->
+    <section id="ekosistem" class="py-24 relative overflow-hidden bg-slate-900">
+        <!-- Background Image & Overlay -->
+        <div class="absolute inset-0 z-0">
+            <!-- Shadow gambar driver dan unit towing -->
+            <img src="image_557835.jpg" onerror="this.style.display='none';" alt="Driver and Towing Shadow Background" class="w-full h-full object-cover grayscale opacity-20 mix-blend-overlay">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/90 to-slate-900/95"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-whoosh-cyan font-bold uppercase tracking-widest text-xs border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 rounded-full inline-block mb-3">Sistem Terintegrasi</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Alur <span class="text-whoosh-orange">Ekosistem Digital</span></h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-600 via-whoosh-orange to-cyan-400 mx-auto rounded-full my-4"></div>
+                <p class="text-sm text-slate-400 max-w-lg mx-auto">Dari pesanan masuk hingga unit diterima, semuanya terhubung dalam satu aplikasi yang dioperasikan langsung oleh tim Driver Whoosh Express.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Visual Aplikasi (Kiri) -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-whoosh-orange to-whoosh-cyan rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative bg-slate-800 ring-1 ring-white/10 rounded-2xl overflow-hidden flex flex-col gap-2 p-2">
+                        <!-- Gambar driver memegang HP melihat pesanan masuk -->
+                        <img src="image_557873.png" onerror="this.src='driver-hp-app.png'" alt="Driver Menerima Pesanan di Aplikasi Whoosh Express" class="w-full h-auto rounded-xl object-cover border border-slate-700 shadow-2xl z-10 hover:scale-[1.02] transition-transform duration-500">
+                        <img src="image_557b98.png" onerror="this.style.display='none';" alt="Detail Aplikasi Whoosh Express" class="w-full h-auto rounded-xl object-cover border border-slate-700 shadow-xl opacity-90 hover:opacity-100 transition-opacity">
+                    </div>
+                </div>
+
+                <!-- Timeline / Stepper (Kanan) -->
+                <div class="relative pl-8 md:pl-10 space-y-8">
+                    <!-- Garis Animasi -->
+                    <div class="eco-line">
+                        <div class="eco-line-active"></div>
+                    </div>
+
+                    <!-- Step 1 -->
+                    <div class="relative z-10 flex items-start gap-5 group">
+                        <div class="w-14 h-14 rounded-full bg-slate-800 border-2 border-whoosh-cyan flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(0,229,255,0.3)] group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-mobile-screen-button text-xl text-whoosh-cyan"></i>
+                        </div>
+                        <div class="pt-2">
+                            <h4 class="text-lg font-bold text-white mb-1">Pesanan Masuk di Aplikasi</h4>
+                            <p class="text-sm text-slate-400 leading-relaxed">Klien membuat order via Dashboard. Notifikasi langsung diteruskan ke smartphone Driver yang bertugas melingkupi detail unit dan titik jemput.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative z-10 flex items-start gap-5 group">
+                        <div class="w-14 h-14 rounded-full bg-slate-800 border-2 border-whoosh-orange flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(242,101,34,0.3)] group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-clipboard-check text-xl text-whoosh-orange"></i>
+                        </div>
+                        <div class="pt-2">
+                            <h4 class="text-lg font-bold text-white mb-1">Inspeksi & BASTK Digital</h4>
+                            <p class="text-sm text-slate-400 leading-relaxed">Driver melakukan pengecekan fisik 360° dan mesin di lokasi penjemputan. Bukti foto dan tanda tangan digital disimpan ke cloud secara real-time.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative z-10 flex items-start gap-5 group">
+                        <div class="w-14 h-14 rounded-full bg-slate-800 border-2 border-whoosh-cyan flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(0,229,255,0.3)] group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-satellite-dish text-xl text-whoosh-cyan animate-pulse"></i>
+                        </div>
+                        <div class="pt-2">
+                            <h4 class="text-lg font-bold text-white mb-1">Perjalanan & Live Tracking</h4>
+                            <p class="text-sm text-slate-400 leading-relaxed">Aplikasi driver memancarkan GPS ping konstan. Klien dan Control Room (HQ) memantau pergerakan kendaraan melalui Peta Dashboard interaktif 24/7.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative z-10 flex items-start gap-5 group">
+                        <div class="w-14 h-14 rounded-full bg-whoosh-orange border-2 border-white flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(242,101,34,0.6)] group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-flag-checkered text-xl text-white"></i>
+                        </div>
+                        <div class="pt-2">
+                            <h4 class="text-lg font-bold text-white mb-1">Unit Diterima & Selesai</h4>
+                            <p class="text-sm text-slate-400 leading-relaxed">Serah terima di lokasi tujuan. Sistem otomatis mengirimkan report akhir, e-Invoice, dan BASTK lengkap ke email Klien. Ekosistem terselesaikan sempurna.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Cost Calculator -->
+    <section id="kalkulator" class="py-24 bg-slate-950 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-900/80 border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                    <span class="text-whoosh-orange font-semibold text-xs tracking-widest uppercase bg-orange-500/10 px-3 py-1 rounded-full border border-orange-500/20">Kalkulator Cerdas</span>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight">Hitung Estimasi Biaya Pengiriman</h2>
+                    <p class="text-slate-400 text-sm">Dapatkan perkiraan tarif instan berdasarkan jenis layanan dan rute perjalanan.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-5 relative z-10">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Wilayah Asal Pengiriman</label>
+                            <select id="calcOrigin" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-slate-200 focus:outline-none focus:border-whoosh-orange transition-colors">
+                                <option value="jakarta">DKI Jakarta & Sekitarnya</option>
+                                <option value="bandung">Bandung & Jawa Barat</option>
+                                <option value="surabaya">Surabaya & Jawa Timur</option>
+                                <option value="semarang">Semarang & Jawa Tengah</option>
+                                <option value="medan">Medan & Sumatera Utara</option>
+                                <option value="makassar">Makassar & Sulawesi Selatan</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Wilayah Tujuan Pengiriman</label>
+                            <select id="calcDest" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-slate-200 focus:outline-none focus:border-whoosh-orange transition-colors">
+                                <option value="surabaya">Surabaya / Jawa Timur</option>
+                                <option value="jakarta">DKI Jakarta & Sekitarnya</option>
+                                <option value="bali">Bali / Denpasar</option>
+                                <option value="medan">Medan / Sumatera</option>
+                                <option value="samarinda">Samarinda / Kalimantan Timur</option>
+                                <option value="makassar">Makassar / Sulawesi</option>
+                            </select>
+                        </div>
+```html
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PT. Whoosh Indonesia Ekspres | Platform Digital Pengiriman Kendaraan Nasional</title>
+
+    <meta name="description" content="Whoosh Express adalah platform digital pengiriman kendaraan nasional yang menyediakan layanan Self Drive, Towing, Car Carrier, Fleet Management, Live Tracking, Digital BAST dan Dashboard Monitoring untuk perusahaan, dealer, rental, balai lelang dan logistik kendaraan di seluruh Indonesia.">
+
+    <meta name="keywords" content="Whoosh Express, PT Whoosh Indonesia Ekspres, Pengiriman Kendaraan, Self Drive, Towing, Car Carrier, Fleet Management, Digital BAST, Live Tracking, Dashboard Monitoring, Ekspedisi Mobil Nasional">
+
+    <meta name="author" content="PT. Whoosh Indonesia Ekspres">
+
+    <meta name="robots" content="index,follow,max-image-preview:large">
+
+    <meta name="theme-color" content="#0666AC">
+
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="canonical" href="[https://whooshexpress.com/](https://whooshexpress.com/)">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Whoosh Express">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:url" content="[https://whooshexpress.com/](https://whooshexpress.com/)">
+
+    <meta property="og:title"
+        content="Whoosh Express | Platform Digital Pengiriman Kendaraan Nasional">
+
+    <meta property="og:description"
+        content="Platform digital pengiriman kendaraan nasional dengan layanan Self Drive, Towing, Car Carrier, Fleet Management, Live Tracking, Dashboard Monitoring dan Digital BAST.">
+
+    <meta property="og:image"
+        content="[https://whooshexpress.com/logo-whoosh.png](https://whooshexpress.com/logo-whoosh.png)">
+
+    <meta property="og:image:width" content="1200">
+
+    <meta property="og:image:height" content="630">
+
+    <meta property="og:image:type" content="image/png">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="twitter:title"
+        content="Whoosh Express | Platform Digital Pengiriman Kendaraan Nasional">
+
+    <meta name="twitter:description"
+        content="Platform digital pengiriman kendaraan nasional dengan layanan Self Drive, Towing, Car Carrier, Fleet Management, Live Tracking, Dashboard Monitoring dan Digital BAST.">
+
+    <meta name="twitter:image"
+        content="[https://whooshexpress.com/logo-whoosh.png](https://whooshexpress.com/logo-whoosh.png)">
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Microsoft -->
+    <meta name="msapplication-TileColor" content="#0666AC">
+    <meta name="msapplication-TileImage" content="/favicon-192x192.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap)" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+    
+    <!-- Tailwind CSS -->
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    
+    <!-- Leaflet JS & CSS for Interactive Map -->
+    <link rel="stylesheet" href="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.css](https://unpkg.com/leaflet@1.9.4/dist/leaflet.css)" />
+    <script src="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.js](https://unpkg.com/leaflet@1.9.4/dist/leaflet.js)"></script>
 
     <script>
         tailwind.config = {
@@ -156,39 +917,71 @@
             background-color: #072442;
             font-family: 'Inter', sans-serif;
         }
+
+        /* Animated Routes Styles */
+        .route-land {
+            stroke-dasharray: 8, 8;
+            animation: dashMove 15s linear infinite;
+            filter: drop-shadow(0 0 3px rgba(242,101,34,0.8));
+        }
         
-        /* Image Hover Overlay for Gallery */
+        .route-sea {
+            stroke-dasharray: 6, 12;
+            animation: dashMove 25s linear infinite;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 4px rgba(0,210,255,0.8));
+        }
+
+        @keyframes dashMove {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        /* Professional Image Frame for Gallery */
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 0.75rem;
+            border-radius: 0.5rem;
+            border: 6px solid #ffffff; /* Tema pinggiran foto (bingkai putih profesional) */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
         }
         .gallery-item img {
             transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .gallery-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(6, 102, 172, 0.9) 0%, rgba(6, 102, 172, 0.4) 50%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
+            background: linear-gradient(to top, rgba(6, 102, 172, 0.95) 0%, rgba(6, 102, 172, 0.6) 40%, transparent 100%);
+            display: flex; /* Tetap ditampilkan agar informatif & profesional */
             flex-direction: column;
             justify-content: flex-end;
-            padding: 1.5rem;
+            padding: 1.25rem;
+            pointer-events: none;
         }
         .gallery-item:hover img {
             transform: scale(1.1);
         }
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
+        
+        /* Ecosystem Line */
+        .eco-timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #F26522, #0666AC);
+            z-index: 0;
         }
     </style>
 </head>
 <body class="font-sans text-gray-800 antialiased bg-gray-50 flex flex-col min-h-screen">
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/6282295959933?text=Halo%20Whoosh%20Express,%20saya%20ingin%20mengajukan%20kerjasama%20pengiriman%20kendaraan." 
+    <a href="[https://wa.me/6282295959933?text=Halo%20Whoosh%20Express,%20saya%20ingin%20mengajukan%20kerjasama%20pengiriman%20kendaraan](https://wa.me/6282295959933?text=Halo%20Whoosh%20Express,%20saya%20ingin%20mengajukan%20kerjasama%20pengiriman%20kendaraan)." 
        target="_blank" 
        rel="noopener noreferrer" 
        class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-2xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center border-2 border-white shrink-0 cursor-pointer"
@@ -204,7 +997,7 @@
                 <span><i class="fa-solid fa-clock mr-1.5 text-whoosh-orange"></i> Layanan Operasional Realtime 24/7</span>
             </div>
             <div class="flex items-center gap-4">
-                <a href="https://wa.me/6282295959933" target="_blank" class="hover:text-whoosh-orange font-semibold flex items-center gap-1.5 transition-colors">
+                <a href="[https://wa.me/6282295959933](https://wa.me/6282295959933)" target="_blank" class="hover:text-whoosh-orange font-semibold flex items-center gap-1.5 transition-colors">
                     <i class="fa-brands fa-whatsapp text-green-400 text-sm"></i> Pengajuan Kerjasama: <span class="text-whoosh-orange">0822-9595-9933</span>
                 </a>
             </div>
@@ -225,6 +1018,7 @@
                     <a href="#lokasi-layanan" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Rute & Lokasi</a>
                     <a href="#layanan" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Layanan</a>
                     <a href="#kalkulator" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Estimasi Tarif</a>
+                    <a href="#ekosistem" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Ekosistem</a>
                     <a href="#dokumentasi-tim" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Galeri</a>
                     <a href="#karir-mitra" class="text-gray-600 hover:text-whoosh-orange font-semibold text-sm transition-colors">Karir & Mitra</a>
                 </div>
@@ -250,6 +1044,7 @@
                 <a href="#lokasi-layanan" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Lokasi & Basecamp</a>
                 <a href="#layanan" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Keunggulan Layanan</a>
                 <a href="#kalkulator" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Kalkulator Tarif</a>
+                <a href="#ekosistem" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Alur Ekosistem</a>
                 <a href="#dokumentasi-tim" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Galeri Dokumentasi</a>
                 <a href="#karir-mitra" class="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-whoosh-orange hover:bg-gray-50 rounded-lg">Daftar Mitra Driver</a>
                 
@@ -292,7 +1087,7 @@
                     </p>
 
                     <div class="flex flex-wrap gap-4 items-center mb-6">
-                        <a href="https://wa.me/6282295959933" target="_blank" class="flex items-center gap-3 bg-[#25D366] hover:bg-green-600 text-white px-5 py-3 rounded-lg font-bold transition-all shadow-lg shadow-green-500/20">
+                        <a href="[https://wa.me/6282295959933](https://wa.me/6282295959933)" target="_blank" class="flex items-center gap-3 bg-[#25D366] hover:bg-green-600 text-white px-5 py-3 rounded-lg font-bold transition-all shadow-lg shadow-green-500/20">
                             <i class="fa-brands fa-whatsapp text-2xl"></i>
                             <div class="text-left leading-tight">
                                 <span class="block text-[10px] uppercase font-semibold text-green-100">Tanya Layanan & Harga</span>
@@ -479,12 +1274,12 @@
                 <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-100 px-3 py-1 rounded-full">Lokasi Layanan Kami</span>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">Infrastruktur & Jaringan Nasional</h2>
                 <div class="w-24 h-1 bg-whoosh-orange mx-auto rounded-full mb-4"></div>
-                <p class="text-gray-600 text-sm">Didukung oleh jaringan basecamp di kota-kota besar untuk memastikan pengiriman kendaraan Anda terkontrol dengan baik di setiap titik transit.</p>
+                <p class="text-gray-600 text-sm">Peta Interaktif Layanan Darat & Laut (Animasi Rute)</p>
             </div>
 
-            <!-- Map Integration -->
+            <!-- Map Integration - Animated Routes included in Script -->
             <div class="relative bg-white/5 border border-white/10 p-2 rounded-3xl shadow-2xl backdrop-blur-sm mb-12">
-              <div id="logistic-map" class="w-full max-w-5xl mx-auto h-[380px] md:h-[450px] rounded-2xl overflow-hidden bg-gray-900 z-10"></div>
+              <div id="logistic-map" class="w-full max-w-5xl mx-auto h-[450px] md:h-[550px] rounded-2xl overflow-hidden bg-gray-900 z-10 border border-gray-800"></div>
             </div>
             
             <!-- Detail Lokasi Text -->
@@ -520,32 +1315,32 @@
                     <div class="bg-white rounded-3xl p-8 shadow-xl h-full border border-gray-100">
                         <div class="flex items-center gap-3 mb-6">
                             <i class="fa-solid fa-map-location-dot text-whoosh-orange text-2xl"></i>
-                            <h3 class="text-2xl font-bold text-whoosh-blue">Daftar Basecamp Area</h3>
+                            <h3 class="text-2xl font-bold text-whoosh-blue">Daftar Basecamp & Node Pelabuhan</h3>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
                             <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
                                 <div class="w-2 h-2 rounded-full bg-whoosh-orange"></div>
-                                <div><p class="font-bold text-sm text-gray-800">Basecamp Jawa Barat</p><p class="text-xs text-gray-500">Bandung & Sekitarnya</p></div>
+                                <div><p class="font-bold text-sm text-gray-800">Area Jawa Barat</p><p class="text-xs text-gray-500">Bandung & Sekitarnya</p></div>
                             </div>
                             <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
                                 <div class="w-2 h-2 rounded-full bg-whoosh-orange"></div>
-                                <div><p class="font-bold text-sm text-gray-800">Basecamp Jawa Tengah</p><p class="text-xs text-gray-500">Semarang, Yogyakarta</p></div>
+                                <div><p class="font-bold text-sm text-gray-800">Area Jawa Tengah</p><p class="text-xs text-gray-500">Semarang, Yogyakarta</p></div>
                             </div>
                             <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
                                 <div class="w-2 h-2 rounded-full bg-whoosh-orange"></div>
-                                <div><p class="font-bold text-sm text-gray-800">Basecamp Jawa Timur</p><p class="text-xs text-gray-500">Surabaya & Sekitarnya</p></div>
+                                <div><p class="font-bold text-sm text-gray-800">Area Jawa Timur</p><p class="text-xs text-gray-500">Surabaya (Hub Penyeberangan)</p></div>
                             </div>
                             <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
                                 <div class="w-2 h-2 rounded-full bg-whoosh-orange"></div>
-                                <div><p class="font-bold text-sm text-gray-800">Basecamp Bali</p><p class="text-xs text-gray-500">Denpasar & Nusa Tenggara</p></div>
+                                <div><p class="font-bold text-sm text-gray-800">Area Bali & Nusa Tenggara</p><p class="text-xs text-gray-500">Denpasar, Mataram</p></div>
                             </div>
                             <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
                                 <div class="w-2 h-2 rounded-full bg-whoosh-orange"></div>
-                                <div><p class="font-bold text-sm text-gray-800">Basecamp Kalimantan</p><p class="text-xs text-gray-500">Balikpapan, Banjarmasin, Pontianak</p></div>
+                                <div><p class="font-bold text-sm text-gray-800">Area Kalimantan</p><p class="text-xs text-gray-500">Balikpapan, Pontianak, Samarinda</p></div>
                             </div>
                             <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
                                 <div class="w-2 h-2 rounded-full bg-whoosh-orange"></div>
-                                <div><p class="font-bold text-sm text-gray-800">Basecamp Sulawesi</p><p class="text-xs text-gray-500">Makassar, Kendari, Manado</p></div>
+                                <div><p class="font-bold text-sm text-gray-800">Area Sulawesi</p><p class="text-xs text-gray-500">Makassar, Palu, Gorontalo, Manado, Bitung</p></div>
                             </div>
                         </div>
                     </div>
@@ -554,7 +1349,7 @@
         </div>
     </section>
 
-    <!-- Interactive Cost Calculator (Tetap Ada) -->
+    <!-- Kalkulator Tarif -->
     <section id="kalkulator" class="py-24 bg-slate-950 relative">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-gradient-to-br from-slate-900 to-slate-900/80 border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
@@ -631,11 +1426,11 @@
         </div>
     </section>
 
-    <!-- Services & Ekosistem (Disatukan untuk ringkas) -->
+    <!-- Keunggulan Layanan -->
     <section id="layanan" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-50 px-3 py-1 rounded-full">Keunggulan Layanan</span>
+                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-50 px-3 py-1 rounded-full border border-orange-100">Layanan Terbaik</span>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-whoosh-blue mt-3 mb-4">Kenapa Memilih Kami?</h2>
                 <div class="w-24 h-1 bg-whoosh-orange mx-auto rounded-full"></div>
             </div>
@@ -676,7 +1471,97 @@
         </div>
     </section>
 
-    <!-- Galeri Dokumentasi (16 Slot Image Grid) -->
+    <!-- Alur Ekosistem (Baru Ditambahkan sesuai Instruksi) -->
+    <section id="ekosistem" class="py-24 relative overflow-hidden bg-whoosh-blue">
+        <!-- Background Shadow Gambar Driver & Towing -->
+        <div class="absolute inset-0 opacity-20">
+            <img src="image_557835.jpg" onerror="this.src='[https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1920&q=80](https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1920&q=80)'" alt="Background Towing & Driver" class="w-full h-full object-cover grayscale mix-blend-overlay">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#17385A] via-[#17385A]/90 to-[#17385A]/60"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-whoosh-orange font-bold uppercase tracking-wider text-xs bg-orange-500/20 border border-orange-500/30 px-3 py-1 rounded-full text-white">Sistem Terintegrasi</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">Alur Ekosistem Platform</h2>
+                <div class="w-24 h-1 bg-whoosh-orange mx-auto rounded-full"></div>
+                <p class="text-blue-100 mt-4 text-sm max-w-2xl mx-auto">Dari pesanan masuk hingga serah terima, seluruh proses termonitor secara real-time dan terdigitalisasi dalam satu ekosistem Whoosh Express.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                <!-- Kiri: Timeline Flow -->
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="eco-timeline-line"></div>
+                    <div class="space-y-10">
+                        <!-- Step 1 -->
+                        <div class="relative pl-12">
+                            <div class="absolute left-2 top-1.5 w-4 h-4 bg-whoosh-orange rounded-full border-4 border-white shadow-lg transform -translate-x-1.5 z-10"></div>
+                            <h4 class="text-xl font-bold text-white mb-2 flex items-center gap-3">
+                                <i class="fa-solid fa-mobile-screen-button text-whoosh-orange"></i> 1. Pesanan Diterima Driver
+                            </h4>
+                            <p class="text-blue-100 text-sm leading-relaxed">Driver Whoosh Express menerima notifikasi order melalui aplikasi khusus. Seluruh detail unit dan titik penjemputan tersedia lengkap.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="relative pl-12">
+                            <div class="absolute left-2 top-1.5 w-4 h-4 bg-white rounded-full border-4 border-whoosh-blue shadow-lg transform -translate-x-1.5 z-10"></div>
+                            <h4 class="text-xl font-bold text-white mb-2 flex items-center gap-3">
+                                <i class="fa-solid fa-truck-pickup text-whoosh-orange"></i> 2. Proses Inspeksi & Penjemputan
+                            </h4>
+                            <p class="text-blue-100 text-sm leading-relaxed">Driver atau unit towing tiba di lokasi. Melakukan verifikasi awal, cek kondisi fisik kendaraan, dan mendokumentasikannya ke dalam sistem.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="relative pl-12">
+                            <div class="absolute left-2 top-1.5 w-4 h-4 bg-white rounded-full border-4 border-whoosh-blue shadow-lg transform -translate-x-1.5 z-10"></div>
+                            <h4 class="text-xl font-bold text-white mb-2 flex items-center gap-3">
+                                <i class="fa-solid fa-satellite-dish text-whoosh-orange"></i> 3. Lintas Ekspedisi & Live Tracking
+                            </h4>
+                            <p class="text-blue-100 text-sm leading-relaxed">Kendaraan diberangkatkan via jalur darat atau laut. Klien dapat memantau pergerakan unit secara live melalui Dashboard Corporate.</p>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="relative pl-12">
+                            <div class="absolute left-2 top-1.5 w-4 h-4 bg-whoosh-orange rounded-full border-4 border-white shadow-lg transform -translate-x-1.5 z-10"></div>
+                            <h4 class="text-xl font-bold text-white mb-2 flex items-center gap-3">
+                                <i class="fa-solid fa-file-signature text-whoosh-orange"></i> 4. Serah Terima & Digital BASTK
+                            </h4>
+                            <p class="text-blue-100 text-sm leading-relaxed">Unit tiba di tujuan dengan aman. Proses serah terima dilakukan menggunakan sistem E-Sign dan penerbitan BASTK Digital secara otomatis.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kanan: Gambar Driver dengan HP / Pesanan Masuk -->
+                <div class="w-full lg:w-1/2 flex justify-center relative">
+                    <div class="relative z-10 w-full max-w-[380px] group animate-floating">
+                        <!-- Frame Aplikasi / HP -->
+                        <img src="image_557b98.png" onerror="this.src='[https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=600&q=80](https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=600&q=80)'" alt="Aplikasi Driver Whoosh Express" class="w-full h-auto drop-shadow-2xl rounded-3xl border-8 border-slate-800/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                        
+                        <!-- Floating Notif -->
+                        <div class="absolute -right-6 top-16 bg-white p-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] flex items-center gap-4 animate-bounce-slow z-20 border border-gray-100">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center relative">
+                                <i class="fa-solid fa-bell text-green-600 text-xl z-10"></i>
+                                <div class="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-30"></div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold mb-0.5">Aplikasi Driver</p>
+                                <p class="text-sm font-extrabold text-green-600">Pesanan Masuk!</p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Status -->
+                        <div class="absolute -left-8 bottom-20 bg-white p-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] flex items-center gap-4 z-20 border border-gray-100 hover:scale-105 transition-transform duration-300">
+                            <div class="w-10 h-10 bg-whoosh-orange rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-check text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-800">BASTK Digital</p>
+                                <p class="text-[11px] text-gray-500">Telah Ditandatangani</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Dokumentasi (16 Slot Image Grid dengan Tema Profesional) -->
     <section id="dokumentasi-tim" class="py-24 bg-slate-900 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -688,150 +1573,150 @@
                 <p class="text-sm text-slate-400 max-w-lg mx-auto">Kumpulan 16 dokumentasi kegiatan operasional layanan Whoosh Express di berbagai wilayah.</p>
             </div>
 
-            <!-- 16 Image Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- 16 Image Grid dengan CSS Frame yang keren -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 
                 <!-- Item 1 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="tim1.png" onerror="this.src='https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80'" alt="Briefing" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="tim1.png" onerror="this.src='[https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80)'" alt="Briefing">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Morning Briefing</h4>
-                        <p class="text-xs text-blue-200">Persiapan tim operasional</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Morning Briefing</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Persiapan tim operasional</p>
                     </div>
                 </div>
                 
                 <!-- Item 2 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="towing.png" onerror="this.src='https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=400&q=80'" alt="Towing" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="towing.png" onerror="this.src='[https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=400&q=80)'" alt="Towing">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Loading Towing</h4>
-                        <p class="text-xs text-blue-200">Pengamanan unit VIP</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Loading Towing</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Pengamanan unit VIP</p>
                     </div>
                 </div>
 
                 <!-- Item 3 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="serahterima.png" onerror="this.src='https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=400&q=80'" alt="BASTK" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="serahterima.png" onerror="this.src='[https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=400&q=80)'" alt="BASTK">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Digital BASTK</h4>
-                        <p class="text-xs text-blue-200">Serah terima di tujuan</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Digital BASTK</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Serah terima di tujuan</p>
                     </div>
                 </div>
 
                 <!-- Item 4 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="inspeksi.png" onerror="this.src='https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=400&q=80'" alt="Inspeksi" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="inspeksi.png" onerror="this.src='[https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=400&q=80)'" alt="Inspeksi">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Inspeksi Kendaraan</h4>
-                        <p class="text-xs text-blue-200">Cek fisik detail</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Inspeksi Kendaraan</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Cek fisik detail</p>
                     </div>
                 </div>
 
                 <!-- Item 5 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="driver1.png" onerror="this.src='https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=400&q=80'" alt="Lintas Provinsi" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="driver1.png" onerror="this.src='[https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=400&q=80)'" alt="Lintas Provinsi">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Lintas Provinsi</h4>
-                        <p class="text-xs text-blue-200">Perjalanan malam aman</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Lintas Provinsi</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Perjalanan aman malam hari</p>
                     </div>
                 </div>
 
                 <!-- Item 6 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="driver2.png" onerror="this.src='https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=400&q=80'" alt="Self Drive" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="driver2.png" onerror="this.src='[https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=400&q=80)'" alt="Self Drive">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Driver Profesional</h4>
-                        <p class="text-xs text-blue-200">Layanan Self Drive</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Driver Profesional</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Layanan Self Drive Handal</p>
                     </div>
                 </div>
 
                 <!-- Item 7 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="carcarrier.jpg" onerror="this.src='https://images.unsplash.com/photo-1605816988069-b11383b50717?auto=format&fit=crop&w=400&q=80'" alt="Car Carrier" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="carcarrier.jpg" onerror="this.src='[https://images.unsplash.com/photo-1605816988069-b11383b50717?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1605816988069-b11383b50717?auto=format&fit=crop&w=400&q=80)'" alt="Car Carrier">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Car Carrier</h4>
-                        <p class="text-xs text-blue-200">Kapasitas multi-unit</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Car Carrier</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Kapasitas multi-unit optimal</p>
                     </div>
                 </div>
 
                 <!-- Item 8 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="roro.jpg" onerror="this.src='https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?auto=format&fit=crop&w=400&q=80'" alt="Kapal RoRo" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="roro.jpg" onerror="this.src='[https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?auto=format&fit=crop&w=400&q=80)'" alt="Kapal RoRo">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Penyeberangan Ro-Ro</h4>
-                        <p class="text-xs text-blue-200">Ekspedisi Antar Pulau</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Penyeberangan Kapal</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Ekspedisi Logistik Antar Pulau</p>
                     </div>
                 </div>
 
                 <!-- Item 9 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="cekmesin.jpg" onerror="this.src='https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&w=400&q=80'" alt="Cek Mesin" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="cekmesin.jpg" onerror="this.src='[https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&w=400&q=80)'" alt="Cek Mesin">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Verifikasi Mesin</h4>
-                        <p class="text-xs text-blue-200">Standar operasional ketat</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Verifikasi Mesin</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Standar operasional SOP ketat</p>
                     </div>
                 </div>
 
                 <!-- Item 10 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="basecamp.jpg" onerror="this.src='https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=400&q=80'" alt="Basecamp" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="basecamp.jpg" onerror="this.src='[https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=400&q=80)'" alt="Basecamp">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Armada Basecamp</h4>
-                        <p class="text-xs text-blue-200">Siaga 24 Jam</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Armada Basecamp</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Jaringan Siaga 24 Jam Nasional</p>
                     </div>
                 </div>
 
                 <!-- Item 11 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="dashboard.jpg" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80'" alt="Control Room" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="dashboard.jpg" onerror="this.src='[https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80)'" alt="Control Room">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Control Room</h4>
-                        <p class="text-xs text-blue-200">Pemantauan Live Tracking</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Control Room</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Pemantauan Live Tracking GPS</p>
                     </div>
                 </div>
 
                 <!-- Item 12 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="training.jpg" onerror="this.src='https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=400&q=80'" alt="Training" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="training.jpg" onerror="this.src='[https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=400&q=80)'" alt="Training">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Safety Training</h4>
-                        <p class="text-xs text-blue-200">Peningkatan skill SDM</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Safety Training</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Peningkatan skill SDM & Driver</p>
                     </div>
                 </div>
 
                 <!-- Item 13 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="dealer.jpg" onerror="this.src='https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=400&q=80'" alt="Dealer" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="dealer.jpg" onerror="this.src='[https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=400&q=80)'" alt="Dealer">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Klien APM / Dealer</h4>
-                        <p class="text-xs text-blue-200">Distribusi unit baru</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Klien APM / Dealer</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Distribusi unit armada baru</p>
                     </div>
                 </div>
 
                 <!-- Item 14 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="lelang.jpg" onerror="this.src='https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=400&q=80'" alt="Lelang" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="lelang.jpg" onerror="this.src='[https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=400&q=80)'" alt="Lelang">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Mitra Balai Lelang</h4>
-                        <p class="text-xs text-blue-200">Penarikan & Pengiriman</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Mitra Balai Lelang</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Penarikan & Pengiriman Unit</p>
                     </div>
                 </div>
 
                 <!-- Item 15 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="escort.jpg" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=80'" alt="Pengawalan" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="escort.jpg" onerror="this.src='[https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=80)'" alt="Pengawalan">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Pengawalan Khusus</h4>
-                        <p class="text-xs text-blue-200">Konvoi keamanan</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Pengawalan Khusus</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Konvoi keamanan ekstra</p>
                     </div>
                 </div>
 
                 <!-- Item 16 -->
-                <div class="gallery-item aspect-square bg-slate-800">
-                    <img src="handshake.jpg" onerror="this.src='https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&w=400&q=80'" alt="Handshake" class="w-full h-full object-cover">
+                <div class="gallery-item aspect-square">
+                    <img src="handshake.jpg" onerror="this.src='[https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&w=400&q=80)'" alt="Handshake">
                     <div class="gallery-overlay">
-                        <h4 class="text-white font-bold text-sm">Kepuasan Pelanggan</h4>
-                        <p class="text-xs text-blue-200">Misi utama tercapai</p>
+                        <h4 class="text-white font-bold text-sm leading-tight">Kepuasan Pelanggan</h4>
+                        <p class="text-[11px] text-blue-200 mt-1">Misi operasional utama tercapai</p>
                     </div>
                 </div>
 
@@ -869,7 +1754,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="mailto:hrd@whooshexpress.com?subject=Lamaran Pekerjaan - [Posisi]" class="block w-full text-center py-3.5 bg-whoosh-blue hover:bg-whoosh-lightBlue text-white font-bold rounded-xl transition-all shadow-md">
+                    <a href="mailto:recruitment@whooshexpress.com?subject=Lamaran Pekerjaan - [Posisi]" class="block w-full text-center py-3.5 bg-whoosh-blue hover:bg-whoosh-lightBlue text-white font-bold rounded-xl transition-all shadow-md">
                         <i class="fa-regular fa-envelope mr-2"></i> Kirim CV ke HRD
                     </a>
                 </div>
@@ -882,7 +1767,7 @@
                     <div class="relative z-10">
                         <div class="inline-block bg-whoosh-orange text-white text-xs font-bold px-3 py-1 rounded mb-4">DIBUKA</div>
                         <h3 class="text-2xl font-bold text-white mb-2">Formulir Mitra Driver</h3>
-                        <p class="text-slate-300 text-sm mb-6">Ajukan diri Anda menjadi mitra driver (Self Drive/Towing) dengan mengisi form singkat berikut.</p>
+                        <p class="text-slate-300 text-sm mb-6">Ajukan diri Anda menjadi mitra driver (Self Drive/Towing) dengan mengisi form singkat berikut.<br><br><span class="text-white bg-orange-500/20 px-2 py-1 rounded border border-orange-500/40 inline-flex items-center gap-1.5"><i class="fa-solid fa-circle-exclamation text-whoosh-orange"></i> Persyaratan: Berusia minimal 23 tahun dan maksimal 45 tahun.</span></p>
                         
                         <form id="driverForm" onsubmit="submitDriverForm(event)" class="space-y-4">
                             <div>
@@ -900,7 +1785,7 @@
                                 </select>
                                 <input type="number" id="regPengalaman" required placeholder="Pengalaman (Tahun)" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-whoosh-orange placeholder-slate-400">
                             </div>
-                            <button type="submit" class="w-full py-4 bg-whoosh-orange hover:bg-whoosh-darkOrange text-white font-bold rounded-xl shadow-lg shadow-orange-500/30 transition-all flex justify-center items-center gap-2 mt-2">
+                            <button type="submit" class="w-full py-4 bg-whoosh-orange hover:bg-whoosh-darkOrange text-white font-bold rounded-xl shadow-lg shadow-orange-500/30 transition-all flex justify-center items-center gap-2 mt-2 cursor-pointer">
                                 <i class="fa-brands fa-whatsapp text-xl"></i> Ajukan via WhatsApp Admin
                             </button>
                         </form>
@@ -944,6 +1829,7 @@
                         <ul class="space-y-2 text-sm text-slate-400">
                             <li><a href="#tentang-kami" class="hover:text-white transition-colors duration-200">Tentang Kami</a></li>
                             <li><a href="#lokasi-layanan" class="hover:text-white transition-colors duration-200">Lokasi Layanan (Basecamp)</a></li>
+                            <li><a href="#ekosistem" class="hover:text-white transition-colors duration-200">Alur Ekosistem</a></li>
                             <li><a href="#dokumentasi-tim" class="hover:text-white transition-colors duration-200">Galeri Lapangan</a></li>
                             <li><a href="#karir-mitra" class="hover:text-white transition-colors duration-200">Karir & Kerjasama</a></li>
                         </ul>
@@ -1052,7 +1938,7 @@
             
             showToast('Mengarahkan', 'Menyambungkan ke WhatsApp HRD...');
             setTimeout(() => {
-                window.open(`https://wa.me/6282295959933?text=${message}`, '_blank');
+                window.open(`[https://wa.me/6282295959933?text=$](https://wa.me/6282295959933?text=$){message}`, '_blank');
             }, 1000);
         }
 
@@ -1095,39 +1981,61 @@
                 const price = document.getElementById('resultPrice').textContent;
                 
                 const text = `Halo Whoosh Express, saya ingin melakukan pemesanan (booking) pengiriman dengan detail:%0A%0A*Asal:* ${origin}%0A*Tujuan:* ${dest}%0A*Layanan:* ${service}%0A*Estimasi Kalkulator:* ${price}%0A%0AMohon info lebih lanjut.`;
-                window.open(`https://wa.me/6282295959933?text=${text}`, '_blank');
+                window.open(`[https://wa.me/6282295959933?text=$](https://wa.me/6282295959933?text=$){text}`, '_blank');
             });
         }
 
-        // Leaflet Map Initialization
+        // Leaflet Map Initialization & Animated Routes
         document.addEventListener("DOMContentLoaded", function() {
             var map = L.map('logistic-map', {
                 zoomControl: false,
                 scrollWheelZoom: false 
             }).setView([-2.5489, 118.0149], 5);
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://whooshexpress.com">Whoosh Express</a>',
+            L.tileLayer('https://{s}[.basemaps.cartocdn.com/dark_all/](https://.basemaps.cartocdn.com/dark_all/){z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="[https://whooshexpress.com](https://whooshexpress.com)">Whoosh Express</a>',
                 subdomains: 'abcd',
                 maxZoom: 19
             }).addTo(map);
 
+            // Koordinat Kota Besar & Pelabuhan
+            var coords = {
+                jakarta: [-6.241586, 106.793754],
+                bandung: [-6.917464, 107.619123],
+                semarang: [-6.966667, 110.416664],
+                surabaya: [-7.250445, 112.768845],
+                bali: [-8.650000, 115.216667],
+                pontianak: [-0.0227, 109.3333],
+                balikpapan: [-1.2379, 116.8529],
+                makassar: [-5.1477, 119.4327],
+                palu: [-0.8917, 119.8707],
+                gorontalo: [0.5436, 123.0563],
+                manado: [1.4748, 124.8421],
+                bitung: [1.4451, 125.1824]
+            };
+
             var basecamps = [
-                { name: "Kantor Pusat Jakarta", coords: [-6.241586, 106.793754], type: "HQ" },
-                { name: "Basecamp Bandung", coords: [-6.917464, 107.619123], type: "Hub" },
-                { name: "Basecamp Semarang", coords: [-6.966667, 110.416664], type: "Hub" },
-                { name: "Basecamp Surabaya", coords: [-7.250445, 112.768845], type: "Hub" },
-                { name: "Basecamp Denpasar", coords: [-8.650000, 115.216667], type: "Hub" },
-                { name: "Basecamp Balikpapan", coords: [-1.237927, 116.852853], type: "Hub" },
-                { name: "Basecamp Makassar", coords: [-5.147665, 119.432732], type: "Hub" }
+                { name: "Kantor Pusat Jakarta", coords: coords.jakarta, type: "HQ" },
+                { name: "Basecamp Bandung", coords: coords.bandung, type: "Hub" },
+                { name: "Basecamp Semarang", coords: coords.semarang, type: "Hub" },
+                { name: "Basecamp Surabaya", coords: coords.surabaya, type: "Hub" },
+                { name: "Basecamp Denpasar (Bali)", coords: coords.bali, type: "Hub" },
+                { name: "Pelabuhan Pontianak", coords: coords.pontianak, type: "Port" },
+                { name: "Pelabuhan Balikpapan", coords: coords.balikpapan, type: "Hub" },
+                { name: "Basecamp Makassar", coords: coords.makassar, type: "Hub" },
+                { name: "Pelabuhan Palu", coords: coords.palu, type: "Port" },
+                { name: "Pelabuhan Gorontalo", coords: coords.gorontalo, type: "Port" },
+                { name: "Basecamp Manado", coords: coords.manado, type: "Hub" },
+                { name: "Pelabuhan Bitung", coords: coords.bitung, type: "Port" }
             ];
 
+            // Render Markers
             basecamps.forEach(function(camp) {
                 var isHQ = camp.type === "HQ";
                 
                 var customIcon = L.divIcon({
                     className: 'custom-div-icon',
-                    html: `<div class="${isHQ ? 'w-5 h-5' : 'w-3 h-3'} rounded-full bg-whoosh-orange border-2 border-white shadow-[0_0_15px_rgba(242,101,34,0.8)] relative">
+                    html: `<div class="${isHQ ? 'w-5 h-5' : 'w-3 h-3'} rounded-full ${camp.type === 'Port' ? 'bg-[#00d2ff]' : 'bg-whoosh-orange'} border-2 border-white shadow-lg relative">
                              ${isHQ ? '<div class="absolute inset-0 bg-orange-400 rounded-full animate-ping opacity-50"></div>' : ''}
                            </div>`,
                     iconSize: [isHQ ? 20 : 12, isHQ ? 20 : 12],
@@ -1137,10 +2045,36 @@
                 L.marker(camp.coords, {icon: customIcon})
                     .bindPopup(`<div style="font-family:'Inter',sans-serif; text-align:center;">
                                   <strong style="color:#0666AC; font-size:14px;">${camp.name}</strong><br>
-                                  <span style="color:#666; font-size:12px;">Whoosh Express ${camp.type}</span>
+                                  <span style="color:#666; font-size:12px;">Whoosh Express Node</span>
                                 </div>`)
                     .addTo(map);
             });
+
+            // --- ANIMATED ROUTES --- //
+            var landOptions = { color: '#F26522', weight: 3, className: 'route-land' };
+            var seaOptions = { color: '#00d2ff', weight: 2, className: 'route-sea' };
+
+            // Jalur Darat
+            L.polyline([coords.jakarta, coords.bandung, coords.semarang, coords.surabaya], landOptions).addTo(map);
+            L.polyline([coords.makassar, coords.palu, coords.gorontalo, coords.manado, coords.bitung], landOptions).addTo(map);
+            
+            // Jalur Laut (Kapal Ro-Ro & Ekspedisi)
+            L.polyline([coords.jakarta, coords.pontianak], seaOptions).addTo(map);
+            L.polyline([coords.surabaya, coords.balikpapan], seaOptions).addTo(map);
+            L.polyline([coords.surabaya, coords.makassar], seaOptions).addTo(map);
+            L.polyline([coords.surabaya, coords.bali], seaOptions).addTo(map); // Penyeberangan laut ke Bali
+            
+            // Ekspedisi Laut Sulawesi (Makassar -> Palu -> Gorontalo -> Bitung)
+            L.polyline([
+                coords.makassar, 
+                [-2.5, 118.5], // curve path
+                coords.palu, 
+                [1.5, 120.5], // curve path
+                coords.gorontalo, 
+                [1.8, 124.5], // curve path
+                coords.bitung
+            ], seaOptions).addTo(map);
+
         });
     </script>
 </body>
